@@ -1,0 +1,229 @@
+digraph
+{
+graph [ordering = "out"]
+v0 [label = "VAR
+DEC(aaa)
+:int"];
+v1 [label = "NAME:TYPE
+a:int"];
+v2 [label = "NAME:TYPE
+b:int"];
+v3 [label = "TYPE-NAME
+LIST
+"];
+v3 -> v2;
+v4 [label = "TYPE-NAME
+LIST
+"];
+v4 -> v1;
+v4 -> v3;
+v5 [label = "INT(10)"];
+v6 [label = "VAR
+DEC(bbb)
+:int"];
+v6 -> v5;
+v7 [label = "STMT
+DEC
+VAR"];
+v7 -> v6;
+v8 [label = "INT(11)"];
+v9 [label = "VAR
+DEC(aaa)
+:int"];
+v9 -> v8;
+v10 [label = "STMT
+DEC
+VAR"];
+v10 -> v9;
+v11 [label = "VAR
+DEC(c)
+:int"];
+v12 [label = "STMT
+DEC
+VAR"];
+v12 -> v11;
+v13 [label = "SIMPLE
+VAR
+(aaa)"];
+v14 [label = "INT(10)"];
+v15 [label = "INT(5)"];
+v16 [label = "INT(303)"];
+v17 [label = "BINOP(*)"];
+v17 -> v15;
+v17 -> v16;
+v18 [label = "BINOP(-)"];
+v18 -> v14;
+v18 -> v17;
+v19 [label = "ASSIGN
+left := right
+"];
+v19 -> v13;
+v19 -> v18;
+v20 [label = "SIMPLE
+VAR
+(aaa)"];
+v21 [label = "RETURN"];
+v21 -> v20;
+v22 [label = "STMT
+LIST
+"];
+v22 -> v21;
+v23 [label = "STMT
+LIST
+"];
+v23 -> v19;
+v23 -> v22;
+v24 [label = "STMT
+LIST
+"];
+v24 -> v12;
+v24 -> v23;
+v25 [label = "STMT
+LIST
+"];
+v25 -> v10;
+v25 -> v24;
+v26 [label = "STMT
+LIST
+"];
+v26 -> v7;
+v26 -> v25;
+v27 [label = "FUNC(israel)
+:int
+"];
+v27 -> v4;
+v27 -> v26;
+v28 [label = "SIMPLE
+VAR
+(aaa)"];
+v29 [label = "INT(0)"];
+v30 [label = "ASSIGN
+left := right
+"];
+v30 -> v28;
+v30 -> v29;
+v31 [label = "RETURN"];
+v32 [label = "STMT
+LIST
+"];
+v32 -> v31;
+v33 [label = "STMT
+LIST
+"];
+v33 -> v30;
+v33 -> v32;
+v34 [label = "FUNC(avishay)
+:void
+"];
+v34 -> v33;
+v35 [label = "INT(10)"];
+v36 [label = "VAR
+DEC(bbb)
+:int"];
+v36 -> v35;
+v37 [label = "STMT
+DEC
+VAR"];
+v37 -> v36;
+v38 [label = "INT(11)"];
+v39 [label = "VAR
+DEC(aaa)
+:int"];
+v39 -> v38;
+v40 [label = "STMT
+DEC
+VAR"];
+v40 -> v39;
+v41 [label = "SIMPLE
+VAR
+(aaa)"];
+v42 [label = "INT(10)"];
+v43 [label = "INT(5)"];
+v44 [label = "INT(303)"];
+v45 [label = "BINOP(*)"];
+v45 -> v43;
+v45 -> v44;
+v46 [label = "BINOP(-)"];
+v46 -> v42;
+v46 -> v45;
+v47 [label = "ASSIGN
+left := right
+"];
+v47 -> v41;
+v47 -> v46;
+v48 [label = "INT(1)"];
+v49 [label = "EXP
+LIST
+"];
+v50 [label = "CALL(avishay)
+WITH"];
+v50 -> v49;
+v51 [label = "BINOP(+)"];
+v51 -> v48;
+v51 -> v50;
+v52 [label = "INT(2)"];
+v53 [label = "EXP
+LIST
+"];
+v53 -> v52;
+v54 [label = "EXP
+LIST
+"];
+v54 -> v51;
+v54 -> v53;
+v55 [label = "CALL(israel)
+WITH"];
+v55 -> v54;
+v56 [label = "VAR
+DEC(ddd)
+:int"];
+v56 -> v55;
+v57 [label = "STMT
+DEC
+VAR"];
+v57 -> v56;
+v58 [label = "RETURN"];
+v59 [label = "STMT
+LIST
+"];
+v59 -> v58;
+v60 [label = "STMT
+LIST
+"];
+v60 -> v57;
+v60 -> v59;
+v61 [label = "STMT
+LIST
+"];
+v61 -> v47;
+v61 -> v60;
+v62 [label = "STMT
+LIST
+"];
+v62 -> v40;
+v62 -> v61;
+v63 [label = "STMT
+LIST
+"];
+v63 -> v37;
+v63 -> v62;
+v64 [label = "FUNC(main)
+:void
+"];
+v64 -> v63;
+v65 [label = "PROGRAM
+"];
+v65 -> v64;
+v66 [label = "PROGRAM
+"];
+v66 -> v34;
+v66 -> v65;
+v67 [label = "PROGRAM
+"];
+v67 -> v27;
+v67 -> v66;
+v68 [label = "PROGRAM
+"];
+v68 -> v0;
+v68 -> v67;
+}
