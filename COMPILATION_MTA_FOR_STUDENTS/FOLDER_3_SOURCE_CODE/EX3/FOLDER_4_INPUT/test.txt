@@ -1,25 +1,25 @@
-int aaa;
 
-int israel( int a, int b)
-{
-	int bbb := 10;
-	int aaa := 11;
-	int c;
-	aaa := 10 - 5 * 303;
-	return aaa;
+
+int aaa(int a){
+int a := 1;
+return 1;
 }
 
-void avishay()
+void bbb()
+
 {
-	aaa :=0;
-	return;
+return;
 }
 
-void main()
+int  main ()
 {
-	int bbb := 10;
-	int aaa := 11;
-	aaa := 10 - 5 * 303;
-	int ddd := israel(1 + avishay() ,2);
-	return;
+	int a:= 1;
+	int b :=2;
+	int temp;
+	while(aaa() +123)
+	{
+			temp := a;
+			a := b;
+			b := temp ;
+	}
 }

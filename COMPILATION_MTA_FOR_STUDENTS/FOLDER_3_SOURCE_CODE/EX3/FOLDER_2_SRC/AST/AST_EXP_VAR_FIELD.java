@@ -13,7 +13,7 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_VAR_FIELD(AST_EXP_VAR var,String fieldName,int posX, int posY)
+	public AST_EXP_VAR_FIELD(AST_EXP_VAR var,String fieldName,int posY, int posXS)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -24,7 +24,7 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		this.var = var;
 		this.fieldName = fieldName;
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY - 1;
 	}
 
 	/*************************************************/
@@ -69,7 +69,7 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		/*********************************/
 		if (t.isClass() == false)
 		{
-			System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",6,6,fieldName);
+			System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",this.posY,this.posX,fieldName);
 			System.exit(0);
 		}
 		else
@@ -91,7 +91,7 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		/*********************************************/
 		/* [4] fieldName does not exist in class var */
 		/*********************************************/
-		System.out.format(">> ERROR [%d:%d] field %s does not exist in class\n",this.posX,this.posY,fieldName);
+		System.out.format(">> ERROR [%d:%d] field %s does not exist in class\n",this.posY,this.posX,fieldName);
 		System.exit(0);
 		return null;
 	}

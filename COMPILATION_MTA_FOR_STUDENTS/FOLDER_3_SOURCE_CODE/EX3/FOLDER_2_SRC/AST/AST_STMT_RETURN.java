@@ -1,6 +1,7 @@
 package AST;
-import TYPES.*;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
 public class AST_STMT_RETURN extends AST_STMT
 {
 	/****************/
@@ -13,7 +14,7 @@ public class AST_STMT_RETURN extends AST_STMT
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_STMT_RETURN(AST_EXP exp,int posX, int posY)
+	public AST_STMT_RETURN(AST_EXP exp,int posY, int posX)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -22,7 +23,7 @@ public class AST_STMT_RETURN extends AST_STMT
 		System.out.print("====================== RETURN STMS\n");
 		this.exp = exp;
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY - 1;
 	}
 
 	/************************************************************/
@@ -56,7 +57,48 @@ public class AST_STMT_RETURN extends AST_STMT
 
 	public TYPE SemantMe()
 	{
-		if (exp != null)return  exp.SemantMe();
-		return TYPE_VOID.getInstance();
+		TYPE function_type=SYMBOL_TABLE.getInstance().getFunctionType();
+
+		if(function_type==null)
+		{
+				//error
+				System.out.format(">> ERROR [%d:%d] function type not found\n",this.posY,this.posX);
+
+		}
+		else
+		{
+				TYPE exp_type=null;
+				if (exp != null)
+				{
+					exp_type=exp.SemantMe();
+					if(exp_type!=null)
+					{
+						if(exp_type.getClass()==function_type.getClass())
+						{
+							return exp_type;
+						}
+						else
+						{
+							//error
+							System.out.format(">> ERROR [%d:%d] exp type and function type are diffrent\n",this.posY,this.posX);
+
+						}
+					}
+				}
+				else
+				{
+					if(function_type instanceof TYPE_VOID)
+					{
+							return TYPE_VOID.getInstance();
+					}
+					else
+					{
+						//error
+						System.out.format(">> ERROR [%d:%d] fuction type not void, return with no type value! \n",this.posY,this.posX);
+
+					}
+				}
+		}
+		return null;
 	}
 }

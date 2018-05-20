@@ -16,7 +16,7 @@ public class AST_EXP_LIST extends AST_Node
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_LIST(AST_EXP head,AST_EXP_LIST tail,int posX, int posY)
+	public AST_EXP_LIST(AST_EXP head,AST_EXP_LIST tail,int posY, int posX)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -29,7 +29,7 @@ public class AST_EXP_LIST extends AST_Node
 		this.head = head;
 		this.tail = tail;
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY -1;
 	}
 	/******************************************************/
 	/* The printing message for a statement list AST node */
@@ -39,7 +39,7 @@ public class AST_EXP_LIST extends AST_Node
 		/********************************/
 		/* AST NODE TYPE = AST EXP LIST */
 		/********************************/
-		System.out.print("AST NODE EXP LIST\n");
+		//System.out.print("AST NODE EXP LIST\n");
 
 		/*************************************/
 		/* RECURSIVELY PRINT HEAD + TAIL ... */
@@ -64,6 +64,7 @@ public class AST_EXP_LIST extends AST_Node
 	public TYPE SemantMe()
 	{
 		TYPE t = null;
+		System.out.print("NOW IN AST EXP LIST\n");
 
 		if (head != null) t = head.SemantMe();
 		if (tail != null) t = tail.SemantMe();

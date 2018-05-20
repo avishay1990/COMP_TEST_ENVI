@@ -1,5 +1,8 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
 public class AST_STMT_WHILE extends AST_STMT
 {
 	public AST_EXP cond;
@@ -10,7 +13,7 @@ public class AST_STMT_WHILE extends AST_STMT
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_STMT_WHILE(AST_EXP cond,AST_STMT_LIST body,int posX, int posY)
+	public AST_STMT_WHILE(AST_EXP cond,AST_STMT_LIST body,int posY, int posX)
 	{
 		SerialNumber = AST_Node_Serial_Number.getFresh();
 
@@ -19,7 +22,7 @@ public class AST_STMT_WHILE extends AST_STMT
 		this.cond = cond;
 		this.body = body;
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY - 1;
 	}
 	public void PrintMe()
 		{
@@ -48,5 +51,43 @@ public class AST_STMT_WHILE extends AST_STMT
 			if (body != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,body.SerialNumber);
 		}
 
+
+		public TYPE SemantMe()
+		{
+			/****************************/
+			/* [0] Semant the Condition */
+			/****************************/
+			if (cond == null)
+				{
+					System.out.format(">> ERROR [%d:%d] condition is null\n",this.posY,this.posX);
+					System.exit(0);
+
+				}
+
+			if (cond.SemantMe() != TYPE_INT.getInstance())
+			{
+				System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",this.posY,this.posX);
+			}
+
+			/*************************/
+			/* [1] Begin Class Scope */
+			/*************************/
+			SYMBOL_TABLE.getInstance().beginScope();
+
+			/***************************/
+			/* [2] Semant Data Members */
+			/***************************/
+			body.SemantMe();
+
+			/*****************/
+			/* [3] End Scope */
+			/*****************/
+			SYMBOL_TABLE.getInstance().endScope();
+
+			/*********************************************************/
+			/* [4] Return value is irrelevant for class declarations */
+			/*********************************************************/
+			return null;
+		}
 
 }

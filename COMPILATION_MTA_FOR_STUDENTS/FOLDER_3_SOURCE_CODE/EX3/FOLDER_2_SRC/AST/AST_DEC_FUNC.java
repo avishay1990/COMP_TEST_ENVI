@@ -23,8 +23,8 @@ public class AST_DEC_FUNC extends AST_DEC
 		String name,
 		AST_TYPE_NAME_LIST params,
 		AST_STMT_LIST body
-		,int posX
-		,int posY)
+		,int posY
+		,int posX)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -38,7 +38,7 @@ public class AST_DEC_FUNC extends AST_DEC
 		this.params = params;
 		this.body = body;
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY - 1;
 	}
 
 	/************************************************************/
@@ -88,16 +88,16 @@ public class AST_DEC_FUNC extends AST_DEC
 		}
 		else if (returnType == null)
 		{
-			System.out.format(">> ERROR [%d:%d] non existing return type %s",this.posX,this.posY);
+			System.out.format(">> ERROR [%d:%d] non existing return type %s",this.posY,this.posX);
 		}
 		else
 		{
-			System.out.format(">> ERROR [%d:%d] The Return Value of this function is not Class, Int Or Void\n",this.posX,this.posY);
+			System.out.format(">> ERROR [%d:%d] The Return Value of this function is not Class, Int Or Void\n",this.posY,this.posX);
 		}
 		/****************************/
 		/* [1] Begin Function Scope */
 		/****************************/
-		SYMBOL_TABLE.getInstance().beginScope();
+		SYMBOL_TABLE.getInstance().beginScope(returnType.TypeName(), returnType);
 
 		/***************************/
 		/* [2] Semant Input Params */
@@ -107,7 +107,7 @@ public class AST_DEC_FUNC extends AST_DEC
 			t = SYMBOL_TABLE.getInstance().find(it.head.type);
 			if (t == null)
 			{
-				System.out.format(">> ERROR [%d:%d] non existing type %s\n",this.posX,this.posY,it.head.type);
+				System.out.format(">> ERROR [%d:%d] non existing type %s\n",this.posY,this.posX,it.head.type);
 			}
 			else
 			{
@@ -121,10 +121,11 @@ public class AST_DEC_FUNC extends AST_DEC
 		/*******************/
 		TYPE bodyReturnType = body.SemantMe();
 
-		if(bodyReturnType != returnType )
+	/*	if(bodyReturnType != returnType )
 		{
 			System.out.format(">> ERROR [%d:%d] Return Wrong value\n",this.posX,this.posY);
 		}
+		*/
 		/*****************/
 		/* [4] End Scope */
 		/*****************/

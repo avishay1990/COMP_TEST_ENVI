@@ -69,8 +69,8 @@ public class Main
 		{
       //file_writer.write("ERROR()");
 			//file_writer.close();
-      System.out.format("---------->Praser error\n");
-			//e.printStackTrace();
+      //System.out.format("---------->Praser error\n");
+			e.printStackTrace();
 		}
 	}
 }

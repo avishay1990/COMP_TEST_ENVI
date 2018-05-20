@@ -1,197 +1,165 @@
 digraph
 {
 graph [ordering = "out"]
-v0 [label = "VAR
-DEC(aaa)
-:int"];
-v1 [label = "NAME:TYPE
+v0 [label = "NAME:TYPE
 a:int"];
-v2 [label = "NAME:TYPE
-b:int"];
-v3 [label = "TYPE-NAME
+v1 [label = "TYPE-NAME
 LIST
 "];
+v1 -> v0;
+v2 [label = "INT(1)"];
+v3 [label = "VAR
+DEC(a)
+:int"];
 v3 -> v2;
-v4 [label = "TYPE-NAME
-LIST
-"];
-v4 -> v1;
+v4 [label = "STMT
+DEC
+VAR"];
 v4 -> v3;
-v6 [label = "VAR
-DEC(bbb)
-:int"];
+v5 [label = "INT(1)"];
+v6 [label = "RETURN"];
+v6 -> v5;
 v7 [label = "STMT
-DEC
-VAR"];
+LIST
+"];
 v7 -> v6;
-v9 [label = "VAR
-DEC(aaa)
-:int"];
-v10 [label = "STMT
-DEC
-VAR"];
-v10 -> v9;
-v11 [label = "VAR
-DEC(c)
-:int"];
-v12 [label = "STMT
-DEC
-VAR"];
-v12 -> v11;
-v13 [label = "SIMPLE
-VAR
-(aaa)"];
-v14 [label = "INT(10)"];
-v15 [label = "INT(5)"];
-v16 [label = "INT(303)"];
-v17 [label = "BINOP(*)"];
-v17 -> v15;
-v17 -> v16;
-v18 [label = "BINOP(-)"];
-v18 -> v14;
-v18 -> v17;
-v19 [label = "ASSIGN
-left := right
-"];
-v19 -> v13;
-v19 -> v18;
-v20 [label = "SIMPLE
-VAR
-(aaa)"];
-v21 [label = "RETURN"];
-v21 -> v20;
-v22 [label = "STMT
+v8 [label = "STMT
 LIST
 "];
-v22 -> v21;
-v23 [label = "STMT
-LIST
-"];
-v23 -> v19;
-v23 -> v22;
-v24 [label = "STMT
-LIST
-"];
-v24 -> v12;
-v24 -> v23;
-v25 [label = "STMT
-LIST
-"];
-v25 -> v10;
-v25 -> v24;
-v26 [label = "STMT
-LIST
-"];
-v26 -> v7;
-v26 -> v25;
-v27 [label = "FUNC(israel)
+v8 -> v4;
+v8 -> v7;
+v9 [label = "FUNC(aaa)
 :int
 "];
-v27 -> v4;
+v9 -> v1;
+v9 -> v8;
+v10 [label = "RETURN"];
+v11 [label = "STMT
+LIST
+"];
+v11 -> v10;
+v12 [label = "FUNC(bbb)
+:void
+"];
+v12 -> v11;
+v13 [label = "INT(1)"];
+v14 [label = "VAR
+DEC(a)
+:int"];
+v14 -> v13;
+v15 [label = "STMT
+DEC
+VAR"];
+v15 -> v14;
+v16 [label = "INT(2)"];
+v17 [label = "VAR
+DEC(b)
+:int"];
+v17 -> v16;
+v18 [label = "STMT
+DEC
+VAR"];
+v18 -> v17;
+v19 [label = "VAR
+DEC(temp)
+:int"];
+v20 [label = "STMT
+DEC
+VAR"];
+v20 -> v19;
+v21 [label = "EXP
+LIST
+"];
+v22 [label = "CALL(aaa)
+WITH"];
+v22 -> v21;
+v23 [label = "INT(123)"];
+v24 [label = "BINOP(+)"];
+v24 -> v22;
+v24 -> v23;
+v25 [label = "SIMPLE
+VAR
+(temp)"];
+v26 [label = "SIMPLE
+VAR
+(a)"];
+v27 [label = "ASSIGN
+left := right
+"];
+v27 -> v25;
 v27 -> v26;
 v28 [label = "SIMPLE
 VAR
-(aaa)"];
-v29 [label = "INT(0)"];
+(a)"];
+v29 [label = "SIMPLE
+VAR
+(b)"];
 v30 [label = "ASSIGN
 left := right
 "];
 v30 -> v28;
 v30 -> v29;
-v31 [label = "RETURN"];
-v32 [label = "STMT
-LIST
-"];
-v32 -> v31;
-v33 [label = "STMT
-LIST
-"];
-v33 -> v30;
-v33 -> v32;
-v34 [label = "FUNC(avishay)
-:void
-"];
-v34 -> v33;
-v36 [label = "VAR
-DEC(bbb)
-:int"];
-v37 [label = "STMT
-DEC
-VAR"];
-v37 -> v36;
-v39 [label = "VAR
-DEC(aaa)
-:int"];
-v40 [label = "STMT
-DEC
-VAR"];
-v40 -> v39;
-v41 [label = "SIMPLE
+v31 [label = "SIMPLE
 VAR
-(aaa)"];
-v42 [label = "INT(10)"];
-v43 [label = "INT(5)"];
-v44 [label = "INT(303)"];
-v45 [label = "BINOP(*)"];
-v45 -> v43;
-v45 -> v44;
-v46 [label = "BINOP(-)"];
-v46 -> v42;
-v46 -> v45;
-v47 [label = "ASSIGN
+(b)"];
+v32 [label = "SIMPLE
+VAR
+(temp)"];
+v33 [label = "ASSIGN
 left := right
 "];
-v47 -> v41;
-v47 -> v46;
-v56 [label = "VAR
-DEC(ddd)
-:int"];
-v57 [label = "STMT
-DEC
-VAR"];
-v57 -> v56;
-v58 [label = "RETURN"];
-v59 [label = "STMT
+v33 -> v31;
+v33 -> v32;
+v34 [label = "STMT
 LIST
 "];
-v59 -> v58;
-v60 [label = "STMT
+v34 -> v33;
+v35 [label = "STMT
 LIST
 "];
-v60 -> v57;
-v60 -> v59;
-v61 [label = "STMT
+v35 -> v30;
+v35 -> v34;
+v36 [label = "STMT
 LIST
 "];
-v61 -> v47;
-v61 -> v60;
-v62 [label = "STMT
+v36 -> v27;
+v36 -> v35;
+v37 [label = "WHILE (left)
+THEN right"];
+v37 -> v24;
+v37 -> v36;
+v38 [label = "STMT
 LIST
 "];
-v62 -> v40;
-v62 -> v61;
-v63 [label = "STMT
+v38 -> v37;
+v39 [label = "STMT
 LIST
 "];
-v63 -> v37;
-v63 -> v62;
-v64 [label = "FUNC(main)
-:void
+v39 -> v20;
+v39 -> v38;
+v40 [label = "STMT
+LIST
 "];
-v64 -> v63;
-v65 [label = "PROGRAM
+v40 -> v18;
+v40 -> v39;
+v41 [label = "STMT
+LIST
 "];
-v65 -> v64;
-v66 [label = "PROGRAM
+v41 -> v15;
+v41 -> v40;
+v42 [label = "FUNC(main)
+:int
 "];
-v66 -> v34;
-v66 -> v65;
-v67 [label = "PROGRAM
+v42 -> v41;
+v43 [label = "PROGRAM
 "];
-v67 -> v27;
-v67 -> v66;
-v68 [label = "PROGRAM
+v43 -> v42;
+v44 [label = "PROGRAM
 "];
-v68 -> v0;
-v68 -> v67;
+v44 -> v12;
+v44 -> v43;
+v45 [label = "PROGRAM
+"];
+v45 -> v9;
+v45 -> v44;
 }

@@ -14,7 +14,7 @@ public class AST_STMT_DEC_VAR extends AST_STMT
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_STMT_DEC_VAR(AST_DEC_VAR var,int posX, int posY)
+	public AST_STMT_DEC_VAR(AST_DEC_VAR var,int posY, int posX)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -26,7 +26,7 @@ public class AST_STMT_DEC_VAR extends AST_STMT
 		this.var = var;
 
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY - 1;
 	}
 
 	public TYPE SemantMe()

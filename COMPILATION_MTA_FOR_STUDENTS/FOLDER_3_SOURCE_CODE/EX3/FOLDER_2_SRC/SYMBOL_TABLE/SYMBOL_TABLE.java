@@ -98,6 +98,34 @@ public class SYMBOL_TABLE
 		return null;
 	}
 
+	public TYPE getFunctionType()
+	{
+		boolean is_found=false;
+		SYMBOL_TABLE_ENTRY e;
+		//search for scope BOUNDARY
+		for (e = table[hash("SCOPE-BOUNDARY")]; e != null; e = e.next)
+		{
+			if (e.name.equals("SCOPE-BOUNDARY"))
+			{
+				TYPE type=e.getType();
+
+				if(type instanceof TYPE_FOR_SCOPE_BOUNDARIES)
+				{
+					TYPE_FOR_SCOPE_BOUNDARIES s_type=(TYPE_FOR_SCOPE_BOUNDARIES)type;
+
+					TYPE sub_type=s_type.getType();
+
+					if(sub_type!=null)
+					{
+						is_found=true;
+						return sub_type;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
 	public boolean isNameInScope(String name)
 	{
 		SYMBOL_TABLE_ENTRY e;
@@ -164,6 +192,24 @@ public class SYMBOL_TABLE
 		enter(
 			"SCOPE-BOUNDARY",
 			new TYPE_FOR_SCOPE_BOUNDARIES("NONE"));
+
+		/*********************************************/
+		/* Print the symbol table after every change */
+		/*********************************************/
+		PrintMe();
+	}
+
+	public void beginScope(String returnValue, TYPE type)
+	{
+		/************************************************************************/
+		/* Though <SCOPE-BOUNDARY> entries are present inside the symbol table, */
+		/* they are not really types. In order to be ablt to debug print them,  */
+		/* a special TYPE_FOR_SCOPE_BOUNDARIES was developed for them. This     */
+		/* class only contain their type name which is the bottom sign: _|_     */
+		/************************************************************************/
+		enter(
+			"SCOPE-BOUNDARY",
+			new TYPE_FOR_SCOPE_BOUNDARIES(returnValue,type));
 
 		/*********************************************/
 		/* Print the symbol table after every change */

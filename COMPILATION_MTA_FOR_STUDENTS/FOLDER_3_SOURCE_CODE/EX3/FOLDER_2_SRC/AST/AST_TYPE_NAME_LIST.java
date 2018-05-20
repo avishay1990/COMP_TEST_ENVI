@@ -15,7 +15,7 @@ public class AST_TYPE_NAME_LIST extends AST_Node
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_TYPE_NAME_LIST(AST_TYPE_NAME head,AST_TYPE_NAME_LIST tail,int posX, int posY)
+	public AST_TYPE_NAME_LIST(AST_TYPE_NAME head,AST_TYPE_NAME_LIST tail,int posY, int posX)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -28,7 +28,7 @@ public class AST_TYPE_NAME_LIST extends AST_Node
 		this.head = head;
 		this.tail = tail;
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY - 1;
 	}
 
 	/******************************************************/

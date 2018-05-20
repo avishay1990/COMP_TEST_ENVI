@@ -14,7 +14,7 @@ public class AST_STMT_IF extends AST_STMT
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_STMT_IF(AST_EXP cond,AST_STMT_LIST body,int posX, int posY)
+	public AST_STMT_IF(AST_EXP cond,AST_STMT_LIST body,int posY, int posX)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -26,7 +26,7 @@ public class AST_STMT_IF extends AST_STMT
 		this.cond = cond;
 		this.body = body;
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY - 1;
 	}
 
 	/*************************************************/
@@ -64,9 +64,16 @@ public class AST_STMT_IF extends AST_STMT
 		/****************************/
 		/* [0] Semant the Condition */
 		/****************************/
+		if (cond == null)
+			{
+				System.out.format(">> ERROR [%d:%d] condition is null\n",this.posY,this.posX);
+				System.exit(0);
+
+			}
+
 		if (cond.SemantMe() != TYPE_INT.getInstance())
 		{
-			System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",this.posX,this.posY);
+			System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",this.posY,this.posX);
 		}
 
 		/*************************/

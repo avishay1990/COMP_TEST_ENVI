@@ -15,7 +15,7 @@ public class AST_EXP_VAR_SIMPLE extends AST_EXP_VAR
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_VAR_SIMPLE(String name,int posX, int posY)
+	public AST_EXP_VAR_SIMPLE(String name,int posY, int posX)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -25,7 +25,7 @@ public class AST_EXP_VAR_SIMPLE extends AST_EXP_VAR
 		System.out.format("====================== var -> ID( %s )\n",name);
 		this.name = name;
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY - 1;
 	}
 
 	/**************************************************/
@@ -47,6 +47,7 @@ public class AST_EXP_VAR_SIMPLE extends AST_EXP_VAR
 	}
 	public TYPE SemantMe()
 	{
+		//System.out.format("IN SEMANTE ME OF AST EXP VAR SIMPLE\n");
 		return SYMBOL_TABLE.getInstance().find(name);
 	}
 }

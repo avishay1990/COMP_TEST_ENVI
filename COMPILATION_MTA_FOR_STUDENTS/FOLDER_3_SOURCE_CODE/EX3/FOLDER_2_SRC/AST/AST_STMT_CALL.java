@@ -1,5 +1,9 @@
 package AST;
 
+import TYPES.*;
+import SYMBOL_TABLE.*;
+
+
 public class AST_STMT_CALL extends AST_STMT
 {
 	/****************/
@@ -13,7 +17,7 @@ public class AST_STMT_CALL extends AST_STMT
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_STMT_CALL(AST_EXP_CALL callExp,int posX, int posY)
+	public AST_STMT_CALL(AST_EXP_CALL callExp,int posY, int posX)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -24,7 +28,7 @@ public class AST_STMT_CALL extends AST_STMT
 
 		this.callExp = callExp;
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY - 1;
 	}
 
 	public void PrintMe()
@@ -43,4 +47,19 @@ public class AST_STMT_CALL extends AST_STMT
 		/****************************************/
 		AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,callExp.SerialNumber);
 	}
+
+
+	public TYPE SemantMe()
+	{
+		if ( this.callExp !=null)
+				return callExp.SemantMe();
+		else
+			{
+				System.out.format(">> ERROR [%d:%d] CallExp is null\n",this.posY,this.posX);
+				System.exit(0);
+			}
+			return null;
+
+	}
+
 }

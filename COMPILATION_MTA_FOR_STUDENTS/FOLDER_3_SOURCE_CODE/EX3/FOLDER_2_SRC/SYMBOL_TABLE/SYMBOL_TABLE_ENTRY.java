@@ -17,7 +17,7 @@ public class SYMBOL_TABLE_ENTRY
 	/* index */
 	/*********/
 	int index;
-	
+
 	/********/
 	/* name */
 	/********/
@@ -38,7 +38,7 @@ public class SYMBOL_TABLE_ENTRY
 	/* The prevtop_index is just for debug purposes ... */
 	/****************************************************/
 	public int prevtop_index;
-	
+
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
@@ -56,5 +56,10 @@ public class SYMBOL_TABLE_ENTRY
 		this.next = next;
 		this.prevtop = prevtop;
 		this.prevtop_index = prevtop_index;
+	}
+
+	public TYPE getType()
+	{
+		return this.type;
 	}
 }

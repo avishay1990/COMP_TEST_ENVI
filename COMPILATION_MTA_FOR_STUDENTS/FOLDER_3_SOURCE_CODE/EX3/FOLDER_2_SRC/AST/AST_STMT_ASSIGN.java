@@ -16,7 +16,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_STMT_ASSIGN(AST_EXP_VAR var,AST_EXP exp,int posX, int posY)
+	public AST_STMT_ASSIGN(AST_EXP_VAR var,AST_EXP exp,int posY, int posX)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -34,7 +34,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		this.var = var;
 		this.exp = exp;
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY - 1;
 	}
 
 	/*********************************************************/
@@ -77,7 +77,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 
 		if (t1 != t2)
 		{
-			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",this.posX,this.posY);
+			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",this.posY,this.posX);
 		}
 		return null;
 	}

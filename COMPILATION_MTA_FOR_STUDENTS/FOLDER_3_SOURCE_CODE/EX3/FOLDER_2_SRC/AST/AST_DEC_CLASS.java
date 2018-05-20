@@ -20,7 +20,7 @@ public class AST_DEC_CLASS extends AST_DEC
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_DEC_CLASS(String name,AST_DEC_LIST data_members,int posX, int posY)
+	public AST_DEC_CLASS(String name,AST_DEC_LIST data_members,int posY, int posX)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -31,8 +31,8 @@ public class AST_DEC_CLASS extends AST_DEC
 
 		this.name = name;
 		this.data_members = data_members;
-		this.posX = posX;
-		this.posY = posY;
+		this.posX = posX ;
+		this.posY = posY - 1 ;
 	}
 
 	/*********************************************************/

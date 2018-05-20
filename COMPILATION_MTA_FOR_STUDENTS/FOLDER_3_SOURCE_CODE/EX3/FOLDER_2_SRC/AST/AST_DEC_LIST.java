@@ -11,12 +11,12 @@ public class AST_DEC_LIST extends AST_Node
 	public AST_DEC_LIST tail;
 	public int  type;
 	public int posX;
-	public int  posY;
+	public int  posY ;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_DEC_LIST(AST_DEC head,AST_DEC_LIST tail, int type,int posX, int posY)
+	public AST_DEC_LIST(AST_DEC head,AST_DEC_LIST tail, int type,int posY, int posX)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -36,7 +36,7 @@ public class AST_DEC_LIST extends AST_Node
 		this.tail = tail;
 		this.type = type;
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY -1;
 
 	}
 

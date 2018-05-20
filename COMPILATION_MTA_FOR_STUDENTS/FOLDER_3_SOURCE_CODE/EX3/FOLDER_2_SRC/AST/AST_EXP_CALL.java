@@ -16,7 +16,7 @@ public class AST_EXP_CALL extends AST_EXP
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_CALL(String funcName,AST_EXP_LIST params,int posX, int posY)
+	public AST_EXP_CALL(String funcName,AST_EXP_LIST params,int posY, int posX)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -26,7 +26,7 @@ public class AST_EXP_CALL extends AST_EXP
 		this.funcName = funcName;
 		this.params = params;
 		this.posX = posX;
-		this.posY = posY;
+		this.posY = posY - 1;
 	}
 
 	/************************************************************/
@@ -59,6 +59,10 @@ public class AST_EXP_CALL extends AST_EXP
 
 	public TYPE SemantMe()
 	{
+
+		//System.out.format("LOG: IN SEMANTE ME OF ASr EXP CALL\n",this.posY,this.posX);
+
+
 		TYPE te = SYMBOL_TABLE.getInstance().find(funcName);
 		if (te instanceof TYPE_FUNCTION)
 		{
@@ -68,26 +72,35 @@ public class AST_EXP_CALL extends AST_EXP
 			 || t.Get_Return_Type() == TYPE_INT.getInstance()
 			 || t.Get_Return_Type() == TYPE_VOID.getInstance() ){
 
+				 // DOINT SEMANTE ME TO THE PARAMETERS OD THE FUNCTION
+	 				//System.out.format("LOG: GOING TO DO SEMANTE ME TO FUNC PARAMETERS",this.posY,this.posX);
+	 				params.SemantMe();
+
 					return t.Get_Return_Type();
 
 			 	}else if( t.Get_Return_Type() == null)
 				{
-					System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Func Return is null",this.posX,this.posY);
+					System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Func Return is null\n",this.posY,this.posX);
 				}else
 				{
-					System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Func Return Unknown TYPE",this.posX,this.posY);
+					System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Func Return Unknown TYPE\n",this.posY,this.posX);
 				}
 
 		}
 		else if( te == null)
 		{
-			System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Instane is Null",this.posX,this.posY);
+			System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Instane is Null\n",this.posY,this.posX);
 		}else
 		{
-			System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL instance Not func",this.posX,this.posY);
+			System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL instance Not func, func does not exist\n",this.posY,this.posX);
 		}
+
+
+
+
 		return null;
 	}
+
 
 
 }
