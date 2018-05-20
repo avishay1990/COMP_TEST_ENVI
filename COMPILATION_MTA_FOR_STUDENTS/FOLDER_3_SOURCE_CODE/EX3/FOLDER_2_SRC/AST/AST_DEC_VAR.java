@@ -11,11 +11,13 @@ public class AST_DEC_VAR extends AST_DEC
 	public String type;
 	public String name;
 	public AST_EXP initialValue;
+	public int posX;
+	public int  posY;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_DEC_VAR(String type,String name,AST_EXP initialValue)
+	public AST_DEC_VAR(String type,String name,AST_EXP initialValu, int posX, int posY)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -24,6 +26,8 @@ public class AST_DEC_VAR extends AST_DEC
 
 		System.out.format("====================== VAR DECLARATION -->  %s \n", name);
 
+		this.posX = posX;
+		this.posY = posY;
 
 		this.type = type;
 		this.name = name;
@@ -70,11 +74,11 @@ public class AST_DEC_VAR extends AST_DEC
 		/****************************/
 		t = SYMBOL_TABLE.getInstance().find(type);
 
-		if(t == TYPE_VOID.getInstance()) System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
+		if(t == TYPE_VOID.getInstance()) System.out.format(">> ERROR [%d:%d] non existing type %s\n",this.posX,this.posY,type);
 
 		if (t == null)
 		{
-			System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,type);
+			System.out.format(">> ERROR [%d:%d] non existing type %s\n",this.posX,this.posY,type);
 			System.exit(0);
 		}
 
@@ -83,7 +87,7 @@ public class AST_DEC_VAR extends AST_DEC
 		/**************************************/
 		if (SYMBOL_TABLE.getInstance().isNameInScope(name))
 		{
-			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",2,2,name);
+			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",this.posX,this.posY,name);
 		}
 
 
@@ -95,16 +99,16 @@ public class AST_DEC_VAR extends AST_DEC
 				intValues= this.initialValue.SemantMe();
 				if (intValues!=null &&  intValues.getClass() == t.getClass())
 				{
-					System.out.format(">> LOG [%d:%d] Both types are the same. %s %s\n",2,2,type , intValues.TypeName());
+					System.out.format(">> LOG [%d:%d] Both types are the same. %s %s\n",this.posX,this.posY,type , intValues.TypeName());
 				}
 				else
 				{
-					System.out.format(">> ERROR [%d:%d] declaration type and init values are not the same. %s %s\n",2,2,type , intValues.TypeName());
+					System.out.format(">> ERROR [%d:%d] declaration type and init values are not the same. %s %s\n",this.posX,this.posY,type , intValues.TypeName());
 					System.exit(0);
 				}
 		}
 		else{
-			System.out.format(">> LOG [%d:%d] initial values are null\n",2,2);
+			System.out.format(">> LOG [%d:%d] initial values are null\n",this.posX,this.posY);
 		}
 
 

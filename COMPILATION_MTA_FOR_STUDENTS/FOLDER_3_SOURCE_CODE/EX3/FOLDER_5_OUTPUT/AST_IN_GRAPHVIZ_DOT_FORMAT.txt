@@ -17,20 +17,16 @@ LIST
 "];
 v4 -> v1;
 v4 -> v3;
-v5 [label = "INT(10)"];
 v6 [label = "VAR
 DEC(bbb)
 :int"];
-v6 -> v5;
 v7 [label = "STMT
 DEC
 VAR"];
 v7 -> v6;
-v8 [label = "INT(11)"];
 v9 [label = "VAR
 DEC(aaa)
 :int"];
-v9 -> v8;
 v10 [label = "STMT
 DEC
 VAR"];
@@ -116,20 +112,16 @@ v34 [label = "FUNC(avishay)
 :void
 "];
 v34 -> v33;
-v35 [label = "INT(10)"];
 v36 [label = "VAR
 DEC(bbb)
 :int"];
-v36 -> v35;
 v37 [label = "STMT
 DEC
 VAR"];
 v37 -> v36;
-v38 [label = "INT(11)"];
 v39 [label = "VAR
 DEC(aaa)
 :int"];
-v39 -> v38;
 v40 [label = "STMT
 DEC
 VAR"];
@@ -151,33 +143,9 @@ left := right
 "];
 v47 -> v41;
 v47 -> v46;
-v48 [label = "INT(1)"];
-v49 [label = "EXP
-LIST
-"];
-v50 [label = "CALL(avishay)
-WITH"];
-v50 -> v49;
-v51 [label = "BINOP(+)"];
-v51 -> v48;
-v51 -> v50;
-v52 [label = "INT(2)"];
-v53 [label = "EXP
-LIST
-"];
-v53 -> v52;
-v54 [label = "EXP
-LIST
-"];
-v54 -> v51;
-v54 -> v53;
-v55 [label = "CALL(israel)
-WITH"];
-v55 -> v54;
 v56 [label = "VAR
 DEC(ddd)
 :int"];
-v56 -> v55;
 v57 [label = "STMT
 DEC
 VAR"];
