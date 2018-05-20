@@ -37,7 +37,6 @@ public class AST_DEC_LIST extends AST_Node
 		this.type = type;
 		this.posX = posX;
 		this.posY = posY -1;
-
 	}
 
 	public TYPE_LIST SemantMe()
@@ -45,10 +44,23 @@ public class AST_DEC_LIST extends AST_Node
 		/*************************************/
 		/* RECURSIVELY PRINT HEAD + TAIL ... */
 		/*************************************/
-		if (head != null) head.SemantMe();
-		if (tail != null) tail.SemantMe();
+		TYPE t= null;
+		TYPE_LIST res= null;
+		if (head != null) t = head.SemantMe();
+		if (tail != null) res= tail.SemantMe();
 
-		return null;
+		if(type == 2 && tail == null)
+		{
+			return new TYPE_LIST(t,null);
+		}
+		else if (type == 2 )
+		{
+			return new TYPE_LIST(t,res);
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	/********************************************************/

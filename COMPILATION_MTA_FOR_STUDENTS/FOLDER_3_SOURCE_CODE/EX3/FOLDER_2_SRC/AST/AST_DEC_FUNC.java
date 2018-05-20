@@ -77,6 +77,12 @@ public class AST_DEC_FUNC extends AST_DEC
 		TYPE returnType = null;
 		TYPE_LIST type_list = null;
 
+			if(SYMBOL_TABLE.getInstance().isNameInScope(this.name))
+				{
+					System.out.format(">> ERROR [%d:%d]  Symbol : %s already exist in scope",this.posY,this.posX,this.name);
+					System.exit(0);
+				}
+
 		/*******************/
 		/* [0] return type */
 		/*******************/

@@ -1,25 +1,32 @@
+class Person
+{
+    int right;
+		int left;
 
-
-int aaa(int a){
-int a := 1;
-return 1;
+		int getLeft()
+		{
+			return left;
+		}
+		int getRight()
+		{
+			return right;
+		}
 }
 
-void bbb()
 
+class Student extends Person
 {
-return;
-}
+	int x;
+	int y;
 
-int  main ()
-{
-	int a:= 1;
-	int b :=2;
-	int temp;
-	while(aaa() +123)
+	int getX()
 	{
-			temp := a;
-			a := b;
-			b := temp ;
+		return x;
 	}
+
+	int getY()
+	{
+		return y;
+	}
+
 }

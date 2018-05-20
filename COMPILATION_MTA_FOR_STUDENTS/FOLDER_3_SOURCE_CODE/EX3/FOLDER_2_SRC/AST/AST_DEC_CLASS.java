@@ -9,6 +9,7 @@ public class AST_DEC_CLASS extends AST_DEC
 	/* NAME */
 	/********/
 	public String name;
+	public String fatherClass;
 
 	/****************/
 	/* DATA MEMBERS */
@@ -34,6 +35,14 @@ public class AST_DEC_CLASS extends AST_DEC
 		this.posX = posX ;
 		this.posY = posY - 1 ;
 	}
+
+	public AST_DEC_CLASS(String name,String fatherClass, AST_DEC_LIST data_members,int posY, int posX)
+	{
+		this(name,data_members,posY,posX);
+		this.fatherClass = fatherClass;
+		System.out.format("LOG[%d,%d] This class : %s implement inherinace from %s\n",this.posX, this.posY,this.name, this.fatherClass);
+	}
+
 
 	/*********************************************************/
 	/* The printing message for a class declaration AST node */
