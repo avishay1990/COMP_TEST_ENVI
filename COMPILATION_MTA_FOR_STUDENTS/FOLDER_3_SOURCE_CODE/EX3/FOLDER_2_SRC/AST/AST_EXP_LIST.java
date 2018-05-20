@@ -10,11 +10,13 @@ public class AST_EXP_LIST extends AST_Node
 	/****************/
 	public AST_EXP head;
 	public AST_EXP_LIST tail;
+	public int posX;
+	public int  posY;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_LIST(AST_EXP head,AST_EXP_LIST tail)
+	public AST_EXP_LIST(AST_EXP head,AST_EXP_LIST tail,int posX, int posY)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -26,6 +28,8 @@ public class AST_EXP_LIST extends AST_Node
 
 		this.head = head;
 		this.tail = tail;
+		this.posX = posX;
+		this.posY = posY;
 	}
 	/******************************************************/
 	/* The printing message for a statement list AST node */

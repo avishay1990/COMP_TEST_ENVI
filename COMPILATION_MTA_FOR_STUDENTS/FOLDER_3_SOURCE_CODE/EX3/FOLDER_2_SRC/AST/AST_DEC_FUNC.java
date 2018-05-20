@@ -12,6 +12,8 @@ public class AST_DEC_FUNC extends AST_DEC
 	public String name;
 	public AST_TYPE_NAME_LIST params;
 	public AST_STMT_LIST body;
+	public int posX;
+	public int  posY;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
@@ -20,7 +22,9 @@ public class AST_DEC_FUNC extends AST_DEC
 		String returnTypeName,
 		String name,
 		AST_TYPE_NAME_LIST params,
-		AST_STMT_LIST body)
+		AST_STMT_LIST body
+		,int posX
+		,int posY)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -33,6 +37,8 @@ public class AST_DEC_FUNC extends AST_DEC
 		this.name = name;
 		this.params = params;
 		this.body = body;
+		this.posX = posX;
+		this.posY = posY;
 	}
 
 	/************************************************************/
@@ -43,7 +49,7 @@ public class AST_DEC_FUNC extends AST_DEC
 		/*************************************************/
 		/* AST NODE TYPE = AST NODE FUNCTION DECLARATION */
 		/*************************************************/
-		System.out.format("FUNC(%s):%s\n",name,returnTypeName);
+		System.out.format("FUNC(%s):%s\n",name,returnTypeName,posX, posY);
 
 		/***************************************/
 		/* RECURSIVELY PRINT params + body ... */
@@ -82,11 +88,11 @@ public class AST_DEC_FUNC extends AST_DEC
 		}
 		else if (returnType == null)
 		{
-			System.out.format(">> ERROR [%d:%d] non existing return type %s",6,6);
+			System.out.format(">> ERROR [%d:%d] non existing return type %s",this.posX,this.posY);
 		}
 		else
 		{
-			System.out.format(">> ERROR [%d:%d] The Return Value of this function is not Class, Int Or Void\n",6,6);
+			System.out.format(">> ERROR [%d:%d] The Return Value of this function is not Class, Int Or Void\n",this.posX,this.posY);
 		}
 		/****************************/
 		/* [1] Begin Function Scope */
@@ -101,7 +107,7 @@ public class AST_DEC_FUNC extends AST_DEC
 			t = SYMBOL_TABLE.getInstance().find(it.head.type);
 			if (t == null)
 			{
-				System.out.format(">> ERROR [%d:%d] non existing type %s\n",2,2,it.head.type);
+				System.out.format(">> ERROR [%d:%d] non existing type %s\n",this.posX,this.posY,it.head.type);
 			}
 			else
 			{
@@ -117,7 +123,7 @@ public class AST_DEC_FUNC extends AST_DEC
 
 		if(bodyReturnType != returnType )
 		{
-			System.out.format(">> ERROR [%d:%d] Return Wrong value\n",2,2);
+			System.out.format(">> ERROR [%d:%d] Return Wrong value\n",this.posX,this.posY);
 		}
 		/*****************/
 		/* [4] End Scope */

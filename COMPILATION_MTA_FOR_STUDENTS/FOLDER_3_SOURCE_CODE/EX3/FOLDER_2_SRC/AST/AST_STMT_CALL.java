@@ -6,11 +6,14 @@ public class AST_STMT_CALL extends AST_STMT
 	/* DATA MEMBERS */
 	/****************/
 	public AST_EXP_CALL callExp;
+	public int posX;
+	public int  posY;
+
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_STMT_CALL(AST_EXP_CALL callExp)
+	public AST_STMT_CALL(AST_EXP_CALL callExp,int posX, int posY)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -20,6 +23,8 @@ public class AST_STMT_CALL extends AST_STMT
 		System.out.print("====================== CALL EXP STMS \n");
 
 		this.callExp = callExp;
+		this.posX = posX;
+		this.posY = posY;
 	}
 
 	public void PrintMe()

@@ -9,11 +9,13 @@ public class AST_EXP_VAR_SIMPLE extends AST_EXP_VAR
 	/* simple variable name */
 	/************************/
 	public String name;
-	
+	public int posX;
+	public int  posY;
+
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_VAR_SIMPLE(String name)
+	public AST_EXP_VAR_SIMPLE(String name,int posX, int posY)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -22,6 +24,8 @@ public class AST_EXP_VAR_SIMPLE extends AST_EXP_VAR
 
 		System.out.format("====================== var -> ID( %s )\n",name);
 		this.name = name;
+		this.posX = posX;
+		this.posY = posY;
 	}
 
 	/**************************************************/

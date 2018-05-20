@@ -16,11 +16,13 @@ public class AST_TYPE_NAME extends AST_Node
 	/****************/
 	public String type;
 	public String name;
+	public int posX;
+	public int  posY;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_TYPE_NAME(String type,String name)
+	public AST_TYPE_NAME(String type,String name,int posX, int posY)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -31,6 +33,8 @@ public class AST_TYPE_NAME extends AST_Node
 
 		this.type = type;
 		this.name = name;
+		this.posX = posX;
+		this.posY = posY;
 	}
 
 	/*************************************************/

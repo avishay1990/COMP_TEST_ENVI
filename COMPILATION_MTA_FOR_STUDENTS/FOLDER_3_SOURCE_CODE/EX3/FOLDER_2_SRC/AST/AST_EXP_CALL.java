@@ -10,12 +10,13 @@ public class AST_EXP_CALL extends AST_EXP
 	/****************/
 	public String funcName;
 	public AST_EXP_LIST params;
-
+	public int posX;
+	public int  posY;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_CALL(String funcName,AST_EXP_LIST params)
+	public AST_EXP_CALL(String funcName,AST_EXP_LIST params,int posX, int posY)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -24,6 +25,8 @@ public class AST_EXP_CALL extends AST_EXP
 
 		this.funcName = funcName;
 		this.params = params;
+		this.posX = posX;
+		this.posY = posY;
 	}
 
 	/************************************************************/
@@ -69,19 +72,19 @@ public class AST_EXP_CALL extends AST_EXP
 
 			 	}else if( t.Get_Return_Type() == null)
 				{
-					System.out.format("---->ERROR: IN AST_EXP_CALL Func Return is null");
+					System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Func Return is null",this.posX,this.posY);
 				}else
 				{
-					System.out.format("---->ERROR: IN AST_EXP_CALL Func Return Unknown TYPE");
+					System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Func Return Unknown TYPE",this.posX,this.posY);
 				}
 
 		}
 		else if( te == null)
 		{
-			System.out.format("---->ERROR: IN AST_EXP_CALL Instane is Null");
+			System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Instane is Null",this.posX,this.posY);
 		}else
 		{
-			System.out.format("---->ERROR: IN AST_EXP_CALL instance Not func");
+			System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL instance Not func",this.posX,this.posY);
 		}
 		return null;
 	}

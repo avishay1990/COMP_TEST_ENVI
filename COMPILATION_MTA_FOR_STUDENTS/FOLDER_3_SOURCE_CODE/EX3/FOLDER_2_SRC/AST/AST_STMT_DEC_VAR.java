@@ -8,11 +8,13 @@ public class AST_STMT_DEC_VAR extends AST_STMT
 	/* DATA MEMBERS */
 	/****************/
 	public AST_DEC_VAR var;
+	public int posX;
+	public int  posY;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_STMT_DEC_VAR(AST_DEC_VAR var)
+	public AST_STMT_DEC_VAR(AST_DEC_VAR var,int posX, int posY)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -22,6 +24,9 @@ public class AST_STMT_DEC_VAR extends AST_STMT
 		System.out.print("====================== CALL EXP STMS DEC\n");
 
 		this.var = var;
+
+		this.posX = posX;
+		this.posY = posY;
 	}
 
 	public TYPE SemantMe()

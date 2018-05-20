@@ -9,11 +9,13 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 	/***************/
 	public AST_EXP_VAR var;
 	public String name;
+	public int posX;
+	public int  posY;
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_STMT_ASSIGN_NEW(AST_EXP_VAR var,String name)
+	public AST_STMT_ASSIGN_NEW(AST_EXP_VAR var,String name,int posX, int posY)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -30,6 +32,8 @@ public class AST_STMT_ASSIGN_NEW extends AST_STMT
 		/*******************************/
 		this.var = var;
 		this.name = name;
+		this.posX = posX;
+		this.posY = posY;
 	}
 
 	/*********************************************************/

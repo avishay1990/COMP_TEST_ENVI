@@ -5,11 +5,13 @@ import TYPES.*;
 public class AST_EXP_INT extends AST_EXP
 {
 	public int value;
-	
+	public int posX;
+	public int  posY;
+
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_INT(int value)
+	public AST_EXP_INT(int value,int posX, int posY)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -18,6 +20,8 @@ public class AST_EXP_INT extends AST_EXP
 
 		System.out.format("====================== exp -> INT( %d )\n", value);
 		this.value = value;
+		this.posX = posX;
+		this.posY = posY;
 	}
 
 	/************************************************/

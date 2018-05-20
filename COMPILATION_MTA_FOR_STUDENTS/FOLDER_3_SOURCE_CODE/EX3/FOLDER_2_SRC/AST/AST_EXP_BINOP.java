@@ -7,12 +7,14 @@ public class AST_EXP_BINOP extends AST_EXP
 	int OP;
 	public AST_EXP left;
 	public AST_EXP right;
+	public int posX;
+	public int  posY;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
 
-	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,int OP)
+	public AST_EXP_BINOP(AST_EXP left,AST_EXP right,int OP,int posX, int posY)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -29,6 +31,8 @@ public class AST_EXP_BINOP extends AST_EXP
 		this.left = left;
 		this.right = right;
 		this.OP = OP;
+		this.posX = posX;
+		this.posY = posY;
 
 		System.out.format("====================== exp -> exp BINOP(%s) exp\n", convert_OP());
 
@@ -102,7 +106,7 @@ public class AST_EXP_BINOP extends AST_EXP
 			return TYPE_INT.getInstance();
 		}
 
-		System.out.format("ERROR: In This Binop not both sides are INT");
+		System.out.format("ERROR[%d,%d]: In This Binop not both sides are INT",this.posX,this.posY);
 
 		System.exit(0);
 		return null;

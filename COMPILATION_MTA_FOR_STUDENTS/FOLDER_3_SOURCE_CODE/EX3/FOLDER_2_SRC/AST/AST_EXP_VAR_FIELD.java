@@ -7,11 +7,13 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 {
 	public AST_EXP_VAR var;
 	public String fieldName;
+	public int posX;
+	public int  posY;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
 	/******************/
-	public AST_EXP_VAR_FIELD(AST_EXP_VAR var,String fieldName)
+	public AST_EXP_VAR_FIELD(AST_EXP_VAR var,String fieldName,int posX, int posY)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -21,6 +23,8 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		System.out.format("====================== var -> var DOT ID( %s )\n",fieldName);
 		this.var = var;
 		this.fieldName = fieldName;
+		this.posX = posX;
+		this.posY = posY;
 	}
 
 	/*************************************************/
@@ -87,7 +91,7 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		/*********************************************/
 		/* [4] fieldName does not exist in class var */
 		/*********************************************/
-		System.out.format(">> ERROR [%d:%d] field %s does not exist in class\n",6,6,fieldName);
+		System.out.format(">> ERROR [%d:%d] field %s does not exist in class\n",this.posX,this.posY,fieldName);
 		System.exit(0);
 		return null;
 	}

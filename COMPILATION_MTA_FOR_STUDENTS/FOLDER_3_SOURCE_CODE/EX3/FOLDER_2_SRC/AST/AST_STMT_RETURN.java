@@ -7,11 +7,13 @@ public class AST_STMT_RETURN extends AST_STMT
 	/* DATA MEMBERS */
 	/****************/
 	public AST_EXP exp;
+	public int posX;
+	public int  posY;
 
 	/*******************/
 	/*  CONSTRUCTOR(S) */
 	/*******************/
-	public AST_STMT_RETURN(AST_EXP exp)
+	public AST_STMT_RETURN(AST_EXP exp,int posX, int posY)
 	{
 		/******************************/
 		/* SET A UNIQUE SERIAL NUMBER */
@@ -19,6 +21,8 @@ public class AST_STMT_RETURN extends AST_STMT
 		SerialNumber = AST_Node_Serial_Number.getFresh();
 		System.out.print("====================== RETURN STMS\n");
 		this.exp = exp;
+		this.posX = posX;
+		this.posY = posY;
 	}
 
 	/************************************************************/
