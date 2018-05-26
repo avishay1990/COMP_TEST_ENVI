@@ -69,8 +69,9 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		/*********************************/
 		if (t.isClass() == false)
 		{
-			System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",this.posY,this.posX,fieldName);
-			System.exit(0);
+			UTILS.Error("access field of a non-class variable" ,this.fieldName,this.getClass().getName(),this.posY, this.posX);
+			//System.out.format(">> ERROR [%d:%d] access %s field of a non-class variable\n",this.posY,this.posX,fieldName);
+			//System.exit(0);
 		}
 		else
 		{
@@ -80,19 +81,21 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		/************************************/
 		/* [3] Look for fiedlName inside tc */
 		/************************************/
-		for (TYPE_LIST it=tc.data_members;it != null;it=it.tail)
+		for (TYPE_CLASS_VAR_DEC_LIST it=tc.data_members;it != null;it=it.tail)
 		{
-			if (it.head.name == fieldName)
+			if (it.head.t.name == fieldName)
 			{
-				return it.head;
+				return it.head.t;
 			}
 		}
 
 		/*********************************************/
 		/* [4] fieldName does not exist in class var */
 		/*********************************************/
-		System.out.format(">> ERROR [%d:%d] field %s does not exist in class\n",this.posY,this.posX,fieldName);
-		System.exit(0);
+		UTILS.Error("field does not exist in class" ,this.fieldName,this.getClass().getName(),this.posY, this.posX);
+
+		//System.out.format(">> ERROR [%d:%d] field %s does not exist in class\n",this.posY,this.posX,fieldName);
+		//System.exit(0);
 		return null;
 	}
 }

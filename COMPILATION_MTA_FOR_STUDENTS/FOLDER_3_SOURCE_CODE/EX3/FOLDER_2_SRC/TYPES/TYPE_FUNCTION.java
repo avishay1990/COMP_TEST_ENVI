@@ -10,12 +10,23 @@ public class TYPE_FUNCTION extends TYPE
 	/*************************/
 	/* types of input params */
 	/*************************/
-	public TYPE_LIST params;
+	public TYPE_CLASS_VAR_DEC_LIST params;
+
+
+	public boolean isBelongToSuperClass = false;
+
 
 	/****************/
 	/* CTROR(S) ... */
 	/****************/
-	public TYPE_FUNCTION(TYPE returnType,String name,TYPE_LIST params)
+	public TYPE_FUNCTION(TYPE returnType,String name,TYPE_CLASS_VAR_DEC_LIST params, boolean isBelongToSuperClass)
+	{
+		this(returnType,name,params);
+		this.isBelongToSuperClass = isBelongToSuperClass;
+	}
+
+
+	public TYPE_FUNCTION(TYPE returnType,String name,TYPE_CLASS_VAR_DEC_LIST params)
 	{
 		this.name = name;
 		this.returnType = returnType;

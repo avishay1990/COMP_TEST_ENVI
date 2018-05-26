@@ -1,32 +1,28 @@
-class Person
-{
-    int right;
-		int left;
 
-		int getLeft()
-		{
-			return left;
-		}
-		int getRight()
-		{
-			return right;
-		}
+int gggg;
+
+
+class Father
+{
+int aaa;
+
+    void eoo()
+    {
+        aaa := 0;
+    }
+
 }
 
 
-class Student extends Person
+
+
+class Son extends Father
 {
-	int x;
-	int y;
+    void eoo()
+    {
+        aaa := 0;
+    }
 
-	int getX()
-	{
-		return x;
-	}
-
-	int getY()
-	{
-		return y;
-	}
 
 }
+

@@ -59,14 +59,19 @@ public class AST_STMT_WHILE extends AST_STMT
 			/****************************/
 			if (cond == null)
 				{
-					System.out.format(">> ERROR [%d:%d] condition is null\n",this.posY,this.posX);
-					System.exit(0);
+
+					UTILS.Error("Condition in while is null",this.getClass().getName(),this.posY, this.posX);
+
+					//System.out.format(">> ERROR [%d:%d] condition is null\n",this.posY,this.posX);
+					//System.exit(0);
 
 				}
 
 			if (cond.SemantMe() != TYPE_INT.getInstance())
 			{
-				System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",this.posY,this.posX);
+				UTILS.Error("condition inside while is not integral",this.getClass().getName(),this.posY, this.posX);
+
+					//System.out.format(">> ERROR [%d:%d] condition inside IF is not integral\n",this.posY,this.posX);
 			}
 
 			/*************************/

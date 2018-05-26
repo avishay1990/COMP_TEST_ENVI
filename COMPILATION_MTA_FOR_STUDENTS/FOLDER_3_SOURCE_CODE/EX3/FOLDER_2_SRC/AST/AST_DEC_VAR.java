@@ -68,18 +68,22 @@ public class AST_DEC_VAR extends AST_DEC
 	{
 		TYPE t;
 		TYPE intValues= null;
+		UTILS.Log("DOING SEMANTE ME FOR DEC VAR",this.name,this.getClass().getName(),this.posY, this.posX);
 
 		/****************************/
 		/* [1] Check If Type exists */
 		/****************************/
 		t = SYMBOL_TABLE.getInstance().find(type);
+		if (!t.name.equals(type)  || !(t == TYPE_INT.getInstance()  || t instanceof TYPE_CLASS ))
+        {
+            UTILS.Error("Non existing type " + type,this.name ,this.getClass().getName(),this.posY, this.posX);
+        }
 
-		if(t == TYPE_VOID.getInstance()) System.out.format(">> ERROR [%d:%d] non existing type %s\n",this.posY,this.posX,type);
+		//if(t == TYPE_VOID.getInstance()) UTILS.Error("Non existing type " + type,this.name ,this.getClass().getName(),this.posY, this.posX);
 
 		if (t == null)
 		{
-			System.out.format(">> ERROR [%d:%d] non existing type %s\n",this.posY,this.posX,type);
-			System.exit(0);
+			 UTILS.Error("Non existing type " + type ,this.name ,this.getClass().getName(),this.posY, this.posX);
 		}
 
 		/**************************************/
@@ -87,8 +91,9 @@ public class AST_DEC_VAR extends AST_DEC
 		/**************************************/
 		if (SYMBOL_TABLE.getInstance().isNameInScope(name))
 		{
-			System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",this.posY,this.posX,name);
+			UTILS.Error("Variable  already exists in scope ",this.name ,this.getClass().getName(),this.posY, this.posX);
 		}
+		//System.out.format(">> ERROR [%d:%d] variable %s already exists in scope\n",this.posY,this.posX,name);
 
 
 		/***************************************************/
@@ -99,16 +104,20 @@ public class AST_DEC_VAR extends AST_DEC
 				intValues= this.initialValue.SemantMe();
 				if (intValues!=null &&  intValues.getClass() == t.getClass())
 				{
-					System.out.format(">> LOG [%d:%d] Both types are the same. %s %s\n",this.posY,this.posX,type , intValues.TypeName());
+					UTILS.Log("Both types are the same ",this.name ,this.getClass().getName(),this.posY, this.posX);
+					//System.out.format(">> LOG [%d:%d] Both types are the same. %s %s\n",this.posY,this.posX,type , intValues.TypeName());
 				}
 				else
 				{
-					System.out.format(">> ERROR [%d:%d] declaration type and init values are not the same. %s %s\n",this.posY,this.posX,type , intValues.TypeName());
-					System.exit(0);
+					UTILS.Error("declaration type and init values are not the same " + type +" and " +intValues.TypeName(),this.name ,this.getClass().getName(),this.posY, this.posX);
+					//System.out.format(">> ERROR [%d:%d] declaration type and init values are not the same. %s %s\n",this.posY,this.posX,type , intValues.TypeName());
+					//System.exit(0);
 				}
 		}
 		else{
-			System.out.format(">> LOG [%d:%d] initial values are null\n",this.posY,this.posX);
+			UTILS.Log("Initial values are null",this.name ,this.getClass().getName(),this.posY, this.posX);
+
+			//System.out.format(">> LOG [%d:%d] initial values are null\n",this.posY,this.posX);
 		}
 
 

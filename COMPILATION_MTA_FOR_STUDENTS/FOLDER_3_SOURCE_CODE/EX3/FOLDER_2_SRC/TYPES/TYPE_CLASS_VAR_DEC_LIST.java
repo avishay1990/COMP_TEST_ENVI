@@ -16,4 +16,16 @@ public class TYPE_CLASS_VAR_DEC_LIST
 	{
 		return String.format("CLASS_VAR_DEC_LIST");
 	}
+
+	public void  ConcateTypeList(TYPE_CLASS_VAR_DEC_LIST t)
+	{
+		TYPE_CLASS_VAR_DEC_LIST temp = this.tail;
+
+		if (this.tail== null) this.tail =  t;
+		else{
+			while (temp.tail != null) temp = temp.tail;
+			temp.tail = t;
+		}
+	}
+
 }

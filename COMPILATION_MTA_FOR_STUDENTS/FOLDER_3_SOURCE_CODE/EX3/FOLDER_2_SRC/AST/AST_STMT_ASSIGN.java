@@ -69,15 +69,21 @@ public class AST_STMT_ASSIGN extends AST_STMT
 	}
 	public TYPE SemantMe()
 	{
+		UTILS.Log("DOING SEMANTE ME FOR STMT ASSIGN",this.getClass().getName(),this.posY, this.posX);
+
 		TYPE t1 = null;
 		TYPE t2 = null;
 
 		if (var != null) t1 = var.SemantMe();
+		UTILS.Log("VAR == " + var.toString(), this.getClass().getName(),this.posY, this.posX);
+
 		if (exp != null) t2 = exp.SemantMe();
+		UTILS.Log("EXP == " +  exp.toString(),this.getClass().getName(),this.posY, this.posX);
 
 		if (t1 != t2)
 		{
-			System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",this.posY,this.posX);
+			UTILS.Error("type mismatch for var := exp",this.getClass().getName(),this.posY, this.posX);
+			//System.out.format(">> ERROR [%d:%d] type mismatch for var := exp\n",this.posY,this.posX);
 		}
 		return null;
 	}

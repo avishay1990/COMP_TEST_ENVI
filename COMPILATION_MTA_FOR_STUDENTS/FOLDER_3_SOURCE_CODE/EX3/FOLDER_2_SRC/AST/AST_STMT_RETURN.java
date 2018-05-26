@@ -57,12 +57,14 @@ public class AST_STMT_RETURN extends AST_STMT
 
 	public TYPE SemantMe()
 	{
-		TYPE function_type=SYMBOL_TABLE.getInstance().getFunctionType();
+		TYPE function_type =SYMBOL_TABLE.getInstance().getFunctionType();
+
 
 		if(function_type==null)
 		{
 				//error
-				System.out.format(">> ERROR [%d:%d] function type not found\n",this.posY,this.posX);
+				UTILS.Error("Function type not found",this.getClass().getName(),this.posY, this.posX);
+				//System.out.format(">> ERROR [%d:%d] function type not found\n",this.posY,this.posX);
 
 		}
 		else
@@ -80,7 +82,9 @@ public class AST_STMT_RETURN extends AST_STMT
 						else
 						{
 							//error
-							System.out.format(">> ERROR [%d:%d] exp type and function type are diffrent\n",this.posY,this.posX);
+							UTILS.Error("Exp type and function type are diffrent",this.getClass().getName(),this.posY, this.posX);
+
+							//System.out.format(">> ERROR [%d:%d] exp type and function type are diffrent\n",this.posY,this.posX);
 
 						}
 					}
@@ -94,8 +98,9 @@ public class AST_STMT_RETURN extends AST_STMT
 					else
 					{
 						//error
-						System.out.format(">> ERROR [%d:%d] fuction type not void, return with no type value! \n",this.posY,this.posX);
+						UTILS.Error("fuction type not void, return with no type value!",this.getClass().getName(),this.posY, this.posX);
 
+						//System.out.format(">> ERROR [%d:%d] fuction type not void, return with no type value! \n",this.posY,this.posX);
 					}
 				}
 		}

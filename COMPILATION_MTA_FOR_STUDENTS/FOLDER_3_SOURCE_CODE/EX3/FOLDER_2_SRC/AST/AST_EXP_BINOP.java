@@ -105,10 +105,11 @@ public class AST_EXP_BINOP extends AST_EXP
 		{
 			return TYPE_INT.getInstance();
 		}
+		UTILS.Error("In This Binop not both sides are INT",this.getClass().getName(),this.posY, this.posX);
 
-		System.out.format("ERROR[%d,%d]: In This Binop not both sides are INT",this.posY,this.posX);
+		//System.out.format("ERROR[%d,%d]: In This Binop not both sides are INT",this.posY,this.posX);
 
-		System.exit(0);
+		//System.exit(0);
 		return null;
 	}
 

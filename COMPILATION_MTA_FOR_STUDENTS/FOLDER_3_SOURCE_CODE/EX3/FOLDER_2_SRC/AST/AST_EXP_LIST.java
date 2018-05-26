@@ -64,7 +64,7 @@ public class AST_EXP_LIST extends AST_Node
 	public TYPE SemantMe()
 	{
 		TYPE t = null;
-		System.out.print("NOW IN AST EXP LIST\n");
+		//System.out.print("NOW IN AST EXP LIST\n");
 
 		if (head != null) t = head.SemantMe();
 		if (tail != null) t = tail.SemantMe();

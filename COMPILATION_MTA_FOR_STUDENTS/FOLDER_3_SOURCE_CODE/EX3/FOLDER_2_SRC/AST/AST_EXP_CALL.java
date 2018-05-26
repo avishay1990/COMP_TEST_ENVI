@@ -80,19 +80,26 @@ public class AST_EXP_CALL extends AST_EXP
 
 			 	}else if( t.Get_Return_Type() == null)
 				{
-					System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Func Return is null\n",this.posY,this.posX);
+					UTILS.Error("Func Return is null" ,this.funcName,this.getClass().getName(),this.posY, this.posX);
+					//System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Func Return is null\n",this.posY,this.posX);
 				}else
 				{
-					System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Func Return Unknown TYPE\n",this.posY,this.posX);
+					UTILS.Error("Func Return Unknown TYPE" ,this.funcName,this.getClass().getName(),this.posY, this.posX);
+
+					//System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Func Return Unknown TYPE\n",this.posY,this.posX);
 				}
 
 		}
 		else if( te == null)
 		{
-			System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Instane is Null\n",this.posY,this.posX);
+			UTILS.Error("Instane is Null" ,this.funcName,this.getClass().getName(),this.posY, this.posX);
+
+			//System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL Instane is Null\n",this.posY,this.posX);
 		}else
 		{
-			System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL instance Not func, func does not exist\n",this.posY,this.posX);
+			UTILS.Error("Instance Not func" ,this.funcName,this.getClass().getName(),this.posY, this.posX);
+
+			//System.out.format("---->ERROR[%d,%d]: IN AST_EXP_CALL instance Not func, func does not exist\n",this.posY,this.posX);
 		}
 
 

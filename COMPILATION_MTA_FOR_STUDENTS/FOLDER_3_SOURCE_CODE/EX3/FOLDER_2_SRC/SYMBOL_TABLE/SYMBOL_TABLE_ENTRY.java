@@ -34,9 +34,12 @@ public class SYMBOL_TABLE_ENTRY
 	public SYMBOL_TABLE_ENTRY prevtop;
 	public SYMBOL_TABLE_ENTRY next;
 
+
 	/****************************************************/
 	/* The prevtop_index is just for debug purposes ... */
 	/****************************************************/
+
+
 	public int prevtop_index;
 
 	/******************/

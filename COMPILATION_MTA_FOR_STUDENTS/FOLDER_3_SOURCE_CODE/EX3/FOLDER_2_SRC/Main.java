@@ -63,6 +63,8 @@ public class Main
 			/* [9] Finalize AST GRAPHIZ DOT file */
 			/*************************************/
 			AST_GRAPHVIZ.getInstance().finalizeFile();
+
+			System.out.println("Program Is OK :)");
     	}
 
 		catch (Exception e)
@@ -73,4 +75,6 @@ public class Main
 			e.printStackTrace();
 		}
 	}
+
+
 }

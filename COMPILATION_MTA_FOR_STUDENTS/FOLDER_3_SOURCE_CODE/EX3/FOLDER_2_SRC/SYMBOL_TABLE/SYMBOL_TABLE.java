@@ -98,6 +98,7 @@ public class SYMBOL_TABLE
 		return null;
 	}
 
+
 	public TYPE getFunctionType()
 	{
 		boolean is_found=false;
@@ -108,7 +109,7 @@ public class SYMBOL_TABLE
 			if (e.name.equals("SCOPE-BOUNDARY"))
 			{
 				TYPE type=e.getType();
-
+				AST.UTILS.Log("Found Scope boundry" ,this.getClass().getName(),0, 0);
 				if(type instanceof TYPE_FOR_SCOPE_BOUNDARIES)
 				{
 					TYPE_FOR_SCOPE_BOUNDARIES s_type=(TYPE_FOR_SCOPE_BOUNDARIES)type;
@@ -123,6 +124,61 @@ public class SYMBOL_TABLE
 				}
 			}
 		}
+		return null;
+	}
+
+
+	public TYPE GetNameFromScope(String name)
+	{
+		SYMBOL_TABLE_ENTRY e;
+		TYPE t= null;
+		boolean is_var_found=false;
+		boolean is_scope_found=false;
+		int var_prev=0;
+		int scope_prev=0;
+
+		// search in the same line
+		for (e = table[hash(name)]; e != null; e = e.next)
+		{
+			if (name.equals(e.name))
+			{
+				is_var_found=true;
+				var_prev=e.prevtop_index;
+				t= e.type;
+				break;
+			}
+		}
+
+		if(is_var_found)
+		{
+			//search for scope BOUNDARY
+			for (e = table[hash("SCOPE-BOUNDARY")]; e != null; e = e.next)
+			{
+				if (e.name.equals("SCOPE-BOUNDARY"))
+				{
+					scope_prev=e.prevtop_index;
+					is_scope_found=true;
+					break;
+				}
+			}
+
+			if(is_scope_found)
+			{
+				if(var_prev<scope_prev)
+				{
+					return null;
+				}
+				else{
+					//System.out.print("Is Var Found:"+is_var_found+" is Scope found:"+is_scope_found+" var prev:"+var_prev+" scope prev:"+scope_prev);
+					return t;
+				}
+			}
+			else{
+				//System.out.print("Is Var Found:"+is_var_found+" is Scope found:"+is_scope_found+" var prev:"+var_prev+" scope prev:"+scope_prev);
+				return t;
+			}
+		}
+
 		return null;
 	}
 
@@ -363,9 +419,7 @@ public class SYMBOL_TABLE
 				new TYPE_FUNCTION(
 					TYPE_VOID.getInstance(),
 					"PrintInt",
-					new TYPE_LIST(
-						TYPE_INT.getInstance(),
-						null)));
+					new TYPE_CLASS_VAR_DEC_LIST(new TYPE_CLASS_VAR_DEC(TYPE_INT.getInstance(),"number"), null)));
 
 		}
 		return instance;

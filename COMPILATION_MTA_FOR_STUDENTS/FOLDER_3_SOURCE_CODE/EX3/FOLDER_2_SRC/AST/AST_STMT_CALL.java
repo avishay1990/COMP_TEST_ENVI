@@ -55,8 +55,9 @@ public class AST_STMT_CALL extends AST_STMT
 				return callExp.SemantMe();
 		else
 			{
-				System.out.format(">> ERROR [%d:%d] CallExp is null\n",this.posY,this.posX);
-				System.exit(0);
+					UTILS.Error("CallExp is null",this.getClass().getName(),this.posY, this.posX);
+					//System.out.format(">> ERROR [%d:%d] CallExp is null\n",this.posY,this.posX);
+				//System.exit(0);
 			}
 			return null;
 

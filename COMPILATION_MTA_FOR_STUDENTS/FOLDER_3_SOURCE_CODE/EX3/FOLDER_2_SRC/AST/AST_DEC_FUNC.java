@@ -3,8 +3,9 @@ package AST;
 import TYPES.*;
 import SYMBOL_TABLE.*;
 
-public class AST_DEC_FUNC extends AST_DEC
-{
+
+
+public class AST_DEC_FUNC extends AST_DEC {
 	/****************/
 	/* DATA MEMBERS */
 	/****************/
@@ -12,12 +13,20 @@ public class AST_DEC_FUNC extends AST_DEC
 	public String name;
 	public AST_TYPE_NAME_LIST params;
 	public AST_STMT_LIST body;
+
+	TYPE returnType = null;
+	TYPE_CLASS_VAR_DEC_LIST type_list = null;
+
 	public int posX;
-	public int  posY;
+	public int posY;
 
 	/******************/
 	/* CONSTRUCTOR(S) */
+
 	/******************/
+
+
+
 	public AST_DEC_FUNC(
 		String returnTypeName,
 		String name,
@@ -73,33 +82,15 @@ public class AST_DEC_FUNC extends AST_DEC
 
 	public TYPE SemantMe()
 	{
-		TYPE t;
-		TYPE returnType = null;
-		TYPE_LIST type_list = null;
 
-			if(SYMBOL_TABLE.getInstance().isNameInScope(this.name))
-				{
-					System.out.format(">> ERROR [%d:%d]  Symbol : %s already exist in scope",this.posY,this.posX,this.name);
-					System.exit(0);
-				}
+		TYPE_FUNCTION t;
+		UTILS.Log("DOING SEMANTE ME FOR FUNCTION",this.name,this.getClass().getName(),this.posY, this.posX);
+
 
 		/*******************/
 		/* [0] return type */
 		/*******************/
-		returnType = SYMBOL_TABLE.getInstance().find(returnTypeName);
-
-		if (returnType == TYPE_INT.getInstance() || returnType == TYPE_VOID.getInstance() ||( returnType instanceof TYPE_CLASS ) )
-		{
-			System.out.format("-->LOG: the Return type of this functin is : %s\n", returnType.TypeName());
-		}
-		else if (returnType == null)
-		{
-			System.out.format(">> ERROR [%d:%d] non existing return type %s",this.posY,this.posX);
-		}
-		else
-		{
-			System.out.format(">> ERROR [%d:%d] The Return Value of this function is not Class, Int Or Void\n",this.posY,this.posX);
-		}
+		GetReturnType();
 		/****************************/
 		/* [1] Begin Function Scope */
 		/****************************/
@@ -108,44 +99,172 @@ public class AST_DEC_FUNC extends AST_DEC
 		/***************************/
 		/* [2] Semant Input Params */
 		/***************************/
-		for (AST_TYPE_NAME_LIST it = params; it  != null; it = it.tail)
-		{
-			t = SYMBOL_TABLE.getInstance().find(it.head.type);
-			if (t == null)
-			{
-				System.out.format(">> ERROR [%d:%d] non existing type %s\n",this.posY,this.posX,it.head.type);
-			}
-			else
-			{
-				type_list = new TYPE_LIST(t,type_list);
-				SYMBOL_TABLE.getInstance().enter(it.head.name,t);
-			}
-		}
+		SemanteFunctionParmeters();
 
-		/*******************/
-		/* [3] Semant Body */
-		/*******************/
-		TYPE bodyReturnType = body.SemantMe();
 
-	/*	if(bodyReturnType != returnType )
-		{
-			System.out.format(">> ERROR [%d:%d] Return Wrong value\n",this.posX,this.posY);
-		}
-		*/
 		/*****************/
 		/* [4] End Scope */
 		/*****************/
 		SYMBOL_TABLE.getInstance().endScope();
 
+		CheckIfNameInScope();
+
 		/***************************************************/
 		/* [5] Enter the Function Type to the Symbol Table */
 		/***************************************************/
-		SYMBOL_TABLE.getInstance().enter(name,new TYPE_FUNCTION(returnType,name,type_list));
+		t = new TYPE_FUNCTION(returnType,name,type_list);
+		SYMBOL_TABLE.getInstance().enter(name,t);
 
 		/*********************************************************/
 		/* [6] Return value is irrelevant for class declarations */
 		/*********************************************************/
-		return null;
+		return t;
 	}
 
+
+	public TYPE SemantMeBody()
+	{
+		TYPE returnType = null;
+
+		returnType = SYMBOL_TABLE.getInstance().find(this.returnTypeName);
+
+
+
+
+
+		/****************************/
+		/* [1] Begin Function Scope */
+		/****************************/
+		SYMBOL_TABLE.getInstance().beginScope(returnType.TypeName(), returnType);
+
+
+		/****************************/
+		/* [2] Enter Parmeters to Symbol table*/
+		/****************************/
+		EnterParmeterToSymbolTable();
+		/****************************/
+		/* [3] SemanteMe Body*/
+		/****************************/
+		TYPE t= body.SemantMe();
+
+			/*****************/
+			/* [3] End Scope */
+			/*****************/
+			SYMBOL_TABLE.getInstance().endScope();
+
+			return t;
+	}
+
+void SemanteFunctionParmeters() {
+	TYPE t;
+	TYPE name=null;
+	TYPE_CLASS_VAR_DEC parmeter = null;
+	this.type_list = null;
+
+	for (AST_TYPE_NAME_LIST it = params; it != null; it = it.tail) {
+		t = SYMBOL_TABLE.getInstance().find(it.head.type);
+
+		name = SYMBOL_TABLE.getInstance().find(it.head.name);
+		if (t == null) {
+			UTILS.Error("non existing type" + it.head.type, this.name, this.getClass().getName(), this.posY, this.posX);
+		}else if (!t.name.equals(it.head.type)  || !(t == TYPE_INT.getInstance()  || t instanceof TYPE_CLASS ))
+		{
+			UTILS.Error("Non exist Return type of this Parmeter" , this.name ,this.getClass().getName(),this.posY, this.posX);
+		}else if (name != null)
+			{
+				/*****************/
+				/* [Check if the name already in Scope */
+				/*****************/
+				UTILS.Error("This name already exist in the scope: " + it.head.name, this.name, this.getClass().getName(), this.posY, this.posX);
+
+			} else {
+			UTILS.Log("Enter type" + it.head.type, this.name, this.getClass().getName(), this.posY, this.posX);
+			{
+				t = it.head.SemantMe();
+
+				parmeter = new TYPE_CLASS_VAR_DEC(t,it.head.name);
+			}
+			this.type_list = new TYPE_CLASS_VAR_DEC_LIST(parmeter, this.type_list);
+		}
+	}
+}
+
+void CheckIfNameInScope() {
+
+	TYPE t =SYMBOL_TABLE.getInstance().GetNameFromScope(this.name);
+	TYPE_FUNCTION tf;
+	TYPE_CLASS t1;
+	TYPE_CLASS t2;
+	TYPE_CLASS_VAR_DEC_LIST l1,l2;
+
+	if(t != null && t instanceof TYPE_FUNCTION)
+	{
+		tf = (TYPE_FUNCTION) t;
+		if(this.type_list!= null ) {
+			for (l1 = this.type_list, l2 = tf.params; l1 != null && l2 != null; l1 = l1.tail, l2 = l2.tail) {
+
+				//Check if both Class
+				if (l1.head.t instanceof TYPE_CLASS && l2.head.t instanceof TYPE_CLASS) {
+					t1 = (TYPE_CLASS) l1.head.t;
+					t2 = (TYPE_CLASS) l2.head.t;
+					if (!(t1.name.equals(t2.name))) return;
+				}
+
+				//Check if Both Int
+				else if (!(l1.head.t == TYPE_INT.getInstance() && l2.head.t == TYPE_INT.getInstance())) {
+					return;
+				}
+
+				//Check is param list are the same size
+
+
+			}
+
+			if ((l1 == null && l2 != null) || (l1 != null && l2 == null)) return;
+
+			else {
+
+				UTILS.Error("Function overloading is not allowed", this.name, this.getClass().getName(), this.posY, this.posX);
+
+
+			}
+		}
+	if(t!=null)
+	{
+
+		UTILS.Error("Symbol already exist in scope", this.name, this.getClass().getName(), this.posY, this.posX);
+	}
+
+}}
+
+ void GetReturnType()
+{
+	returnType = SYMBOL_TABLE.getInstance().find(this.returnTypeName);
+
+	if (returnType == TYPE_INT.getInstance() || returnType == TYPE_VOID.getInstance() ||( returnType instanceof TYPE_CLASS ) )
+	{
+		UTILS.Log("the Return type of this function is " + returnType.TypeName(), this.name ,this.getClass().getName(),this.posY, this.posX);
+
+	}
+	else if (returnType == null)
+	{
+		UTILS.Log("non existing return type", this.name ,this.getClass().getName(),this.posY, this.posX);
+
+	}
+	else
+	{
+		UTILS.Error("The Return Value of this function is not Class, Int Or Void",this.name,this.getClass().getName(),this.posY, this.posX);
+
+		//System.out.format(">> ERROR [%d:%d] The Return Value of this function is not Class, Int Or Void\n",this.posY,this.posX);
+	}
+}
+
+	void EnterParmeterToSymbolTable()
+	{
+
+
+		for (TYPE_CLASS_VAR_DEC_LIST it = type_list; it != null; it = it.tail) {
+			SYMBOL_TABLE.getInstance().enter(it.head.name, it.head.t);
+		}
+	}
 }

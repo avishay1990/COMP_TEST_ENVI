@@ -22,5 +22,15 @@ public class TYPE_LIST
 		return "TYPE";
 	}
 
+	public void  ConcateTypeList(TYPE_LIST t)
+	{
+		TYPE_LIST temp = this.tail;
+
+		if (this.tail== null) this.tail =  t;
+		else{
+			while (temp.tail != null) temp = temp.tail;
+			temp.tail = t;
+		}
+	}
 
 }

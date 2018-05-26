@@ -17,6 +17,7 @@ public abstract class TYPE
 	/*************/
 	public boolean isArray(){ return false;}
 
+
 	public String TypeName()
 	{
 		return "TYPE";
