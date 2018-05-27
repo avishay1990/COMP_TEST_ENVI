@@ -28,4 +28,7 @@ public class TYPE_CLASS extends TYPE
 	{
 		return String.format("CLASS %s",this.name);
 	}
+
+	public boolean isClass(){ return true;}
+
 }

@@ -128,6 +128,29 @@ public class SYMBOL_TABLE
 	}
 
 
+	public boolean getIsBoundForFunction()
+	{
+		boolean is_found=false;
+		SYMBOL_TABLE_ENTRY e;
+		//search for scope BOUNDARY
+		for (e = table[hash("SCOPE-BOUNDARY")]; e != null; e = e.next)
+		{
+			if (e.name.equals("SCOPE-BOUNDARY"))
+			{
+				TYPE type=e.getType();
+				AST.UTILS.Log("Found Scope boundry" ,this.getClass().getName(),0, 0);
+				if(type instanceof TYPE_FOR_SCOPE_BOUNDARIES)
+				{
+					TYPE_FOR_SCOPE_BOUNDARIES s_type=(TYPE_FOR_SCOPE_BOUNDARIES)type;
+
+					return s_type.GetIsForFunction();
+				}
+			}
+		}
+		return false;
+	}
+
+
 	public TYPE GetNameFromScope(String name)
 	{
 		SYMBOL_TABLE_ENTRY e;
@@ -350,7 +373,7 @@ public class SYMBOL_TABLE
 					/* [4b] Print entry(i,it) node */
 					/*******************************/
 					fileWriter.format("node_%d_%d ",i,j);
-					fileWriter.format("[label=\"<f0>%s|<f1>%s|<f2>prevtop=%d|<f3>next\"];\n",
+					if (it.type != null) fileWriter.format("[label=\"<f0>%s|<f1>%s|<f2>prevtop=%d|<f3>next\"];\n",
 						it.name,
 						it.type.name,
 						it.prevtop_index);

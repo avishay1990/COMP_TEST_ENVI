@@ -67,10 +67,9 @@ public class AST_DEC_LIST extends AST_Node
 		{
 				TYPE_CLASS_VAR_DEC_LIST DataMemberList= null;
 				TYPE_CLASS_VAR_DEC_LIST MethodList = null;
-
 				TYPE_CLASS_VAR_DEC_LIST ClassTypeList;
 
-            EnterAllSuperMemberTypeToSymbolTable(superMember);
+            	EnterAllSuperMemberTypeToSymbolTable(superMember);
 				DataMemberList =	SemantMeDataMembers();
 				MethodList = SemantMeMethod();
 
@@ -276,7 +275,7 @@ public class AST_DEC_LIST extends AST_Node
 
                 if (h.t instanceof TYPE_FUNCTION) {
                     TYPE_FUNCTION temp = (TYPE_FUNCTION) h.t;
-                    SYMBOL_TABLE.getInstance().enter(h.name, new TYPE_FUNCTION(temp.returnType, temp.name, temp.params));
+                    SYMBOL_TABLE.getInstance().enter(h.name, new TYPE_FUNCTION(temp.returnType, temp.name, temp.params,true));
                 }
 
                 t= t.tail;

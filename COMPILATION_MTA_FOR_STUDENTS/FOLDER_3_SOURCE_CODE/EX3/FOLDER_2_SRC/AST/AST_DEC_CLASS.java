@@ -42,10 +42,13 @@ public class AST_DEC_CLASS extends AST_DEC
 
 	public AST_DEC_CLASS(String name,String fatherClass, AST_DEC_LIST data_members,int posY, int posX)
 	{
+
 		this(name,data_members,posY,posX);
 		this.fatherClass = fatherClass;
 		System.out.format("LOG[%d,%d] This class : %s implement inherinace from %s\n",this.posX, this.posY,this.name, this.fatherClass);
 	}
+
+
 
 
 	/*********************************************************/
@@ -88,7 +91,14 @@ public class AST_DEC_CLASS extends AST_DEC
 		/*************************/
 		/* [1] Begin Class Scope */
 		/*************************/
+
 		SYMBOL_TABLE.getInstance().beginScope();
+
+		/*************************/
+		/* [1] Enter Dummy Class Name */
+		/*************************/
+		SYMBOL_TABLE.getInstance().enter(name,null);
+
 
 		/***************************/
 		/* [2] Semant Data Members */
@@ -115,7 +125,10 @@ public class AST_DEC_CLASS extends AST_DEC
 
         if (data_members != null) MemberFiledTypes = data_members.SemantMeClass(SuperAllMemberField);
 
-        t = new TYPE_CLASS(fatherClassType,name, MemberFiledTypes);
+		//MarkAllMemberFieldAsSuper();
+
+
+		t = new TYPE_CLASS(fatherClassType,name, MemberFiledTypes);
 
 
 
@@ -130,7 +143,6 @@ public class AST_DEC_CLASS extends AST_DEC
         /* [4] Mark all MemberFiled as SuperFiled for Next classes*/
         /*****************/
 
-        MarkAllMemberFieldAsSuper();
 
 		/************************************************/
 		/* [5] Enter the Class Type to the Symbol Table */
@@ -168,15 +180,18 @@ public class AST_DEC_CLASS extends AST_DEC
     }
 
 
-    void MarkAllMemberFieldAsSuper()
+    public void MarkAllMemberFieldAsSuper()
     {
 
         TYPE_FUNCTION tf= null;
-        for (TYPE_CLASS_VAR_DEC_LIST t= this.MemberFiledTypes; t!= null; t= t.tail)
+        TYPE_CLASS_VAR_DEC_LIST t;
+        for (t= this.MemberFiledTypes; t!= null; t= t.tail)
         {
             if(t.head.t instanceof TYPE_FUNCTION) {
                 tf = (TYPE_FUNCTION) t.head.t;
+                tf.MakeBelongToSuperClass();
                 tf.isBelongToSuperClass = true;
+                t.head.isFromSuperClass = true;
             }
         }
 

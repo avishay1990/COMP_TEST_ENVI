@@ -32,6 +32,10 @@ public class TYPE_FUNCTION extends TYPE
 		this.returnType = returnType;
 		this.params = params;
 	}
+
+	public void MakeBelongToSuperClass()
+	{this.isBelongToSuperClass =true;}
+
 	public String TypeName()
 	{
 		return String.format("FUNCTION %s",this.name);

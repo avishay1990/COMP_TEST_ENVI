@@ -91,25 +91,46 @@ public class AST_EXP_BINOP extends AST_EXP
 		}
 
 
-	public TYPE SemantMe()
-	{
+	public TYPE SemantMe() {
 		TYPE t1 = null;
 		TYPE t2 = null;
 
-		if (left  != null) t1 = left.SemantMe();
+		if (left != null) t1 = left.SemantMe();
 		if (right != null) t2 = right.SemantMe();
 
 		//if (right != null) t2 = right.SemantMe();
 
-		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance()))
-		{
+		if ((t1 == TYPE_INT.getInstance()) && (t2 == TYPE_INT.getInstance())) {
 			return TYPE_INT.getInstance();
+		} else if (t1 instanceof TYPE_CLASS && OP == 6 ) {
+			if (t2 == null) return TYPE_INT.getInstance();
+			if (t2 instanceof TYPE_CLASS) {
+				TYPE_CLASS t1Class = (TYPE_CLASS) t1;
+				TYPE_CLASS t2Class = (TYPE_CLASS) t2;
+
+				if (t2Class.name.equals(t1Class.name)) return TYPE_INT.getInstance();
+				else {
+					TYPE_CLASS tc;
+					for (tc = t2Class.father; tc != null; tc = tc.father) {
+						if (tc.name.equals(t1Class.name)) {
+
+							return TYPE_INT.getInstance();
+
+						}
+
+					}
+					if (tc == null)
+						UTILS.Error("right " + t2Class.name + " not derived left " + t1Class.name, "BINOP", this.getClass().getName(), this.posY, this.posX);
+
+
+				}
+			}
+
+		} else {
+			UTILS.Error("In This Binop not both sides are INT", this.getClass().getName(), this.posY, this.posX);
+
+
 		}
-		UTILS.Error("In This Binop not both sides are INT",this.getClass().getName(),this.posY, this.posX);
-
-		//System.out.format("ERROR[%d,%d]: In This Binop not both sides are INT",this.posY,this.posX);
-
-		//System.exit(0);
 		return null;
 	}
 

@@ -1,28 +1,10 @@
-
-int gggg;
-
-
-class Father
+class Father { int j; int k; }
+int foo(Father f)
 {
-int aaa;
-
-    void eoo()
-    {
-        aaa := 0;
-    }
-
+int i := 620;
+return i < f.j;
 }
-
-
-
-
-class Son extends Father
-{
-    void eoo()
-    {
-        aaa := 0;
-    }
-
-
-}
-
+//class
+//extends
+//nil
+//new

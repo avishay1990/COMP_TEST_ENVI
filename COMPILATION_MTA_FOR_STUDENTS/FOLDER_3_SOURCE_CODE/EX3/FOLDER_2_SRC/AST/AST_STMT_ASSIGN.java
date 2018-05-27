@@ -52,7 +52,7 @@ public class AST_STMT_ASSIGN extends AST_STMT
 		/***********************************/
 		if (var != null) var.PrintMe();
 		if (exp != null) exp.PrintMe();
-		if (exp == null)  	System.out.print("====================== =1=1=1= BAAD\n");
+		if (exp == null)  	System.out.print("STMS assign NIL to VAR\n");
 
 		/***************************************/
 		/* PRINT Node to AST GRAPHVIZ DOT file */
@@ -79,6 +79,45 @@ public class AST_STMT_ASSIGN extends AST_STMT
 
 		if (exp != null) t2 = exp.SemantMe();
 		UTILS.Log("EXP == " +  exp.toString(),this.getClass().getName(),this.posY, this.posX);
+
+		if(t1 != null && t1 instanceof TYPE_CLASS )
+		{
+			if(t2 == null)
+			{
+				UTILS.Log("TO VAR: " + var.toString() + " ASSIGN NIL", this.getClass().getName(),this.posY, this.posX);
+				return null;
+
+			}
+			else if(t2 instanceof TYPE_CLASS )
+			{
+				TYPE_CLASS t1Class = (TYPE_CLASS )t1;
+				TYPE_CLASS t2Class = (TYPE_CLASS )t2;
+
+				if( t1Class.name.equals(t2Class.name)) {
+					UTILS.Log("TO VAR: " + var.toString() + " ASSIGN SAME CLASS", this.getClass().getName(), this.posY, this.posX);
+					return null;
+				}
+					else
+				{
+					for(TYPE_CLASS tc =t2Class.father; tc !=null; tc=tc.father)
+					{
+						if (tc.name.equals(t1Class.name)) {
+							UTILS.Log("TO VAR: " + var.toString() + " ASSIGN DERIVED CLASS", this.getClass().getName(), this.posY, this.posX);
+
+							return null;
+
+						}
+
+					}
+
+				}
+			}
+			else
+			{
+				UTILS.Error("TO VAR: " + var.toString() + " ASSIGN WRONG TYPE", this.getClass().getName(),this.posY, this.posX);
+
+			}
+		}
 
 		if (t1 != t2)
 		{

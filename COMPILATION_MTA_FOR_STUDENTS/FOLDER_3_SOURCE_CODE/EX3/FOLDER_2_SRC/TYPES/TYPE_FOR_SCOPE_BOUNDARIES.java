@@ -2,6 +2,7 @@ package TYPES;
 
 public class TYPE_FOR_SCOPE_BOUNDARIES extends TYPE
 {
+	public boolean isForFunction = false;
 
 	TYPE type=null;
 	/****************/
@@ -15,7 +16,11 @@ public class TYPE_FOR_SCOPE_BOUNDARIES extends TYPE
 	{
 		this.name = name;
 		this.type = type;
+		this.isForFunction =true;
 	}
+
+	public boolean GetIsForFunction()
+	{return this.isForFunction;}
 
 	public TYPE getType()
 	{

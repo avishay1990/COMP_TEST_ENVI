@@ -159,6 +159,7 @@ void SemanteFunctionParmeters() {
 	TYPE t;
 	TYPE name=null;
 	TYPE_CLASS_VAR_DEC parmeter = null;
+	TYPE_CLASS_VAR_DEC_LIST temp=null;
 	this.type_list = null;
 
 	for (AST_TYPE_NAME_LIST it = params; it != null; it = it.tail) {
@@ -184,7 +185,17 @@ void SemanteFunctionParmeters() {
 
 				parmeter = new TYPE_CLASS_VAR_DEC(t,it.head.name);
 			}
-			this.type_list = new TYPE_CLASS_VAR_DEC_LIST(parmeter, this.type_list);
+			if(this.type_list == null) {
+                this.type_list = new TYPE_CLASS_VAR_DEC_LIST(parmeter, null);
+                temp = this.type_list;
+			}
+			    else{
+
+                temp.tail = new  TYPE_CLASS_VAR_DEC_LIST(parmeter, null);
+                temp= temp.tail;
+			}
+
+
 		}
 	}
 }
@@ -193,49 +204,52 @@ void CheckIfNameInScope() {
 
 	TYPE t =SYMBOL_TABLE.getInstance().GetNameFromScope(this.name);
 	TYPE_FUNCTION tf;
-	TYPE_CLASS t1;
-	TYPE_CLASS t2;
-	TYPE_CLASS_VAR_DEC_LIST l1,l2;
+	TYPE_CLASS t1 =null;
+	TYPE_CLASS t2= null;
+	TYPE_CLASS_VAR_DEC_LIST l1=null,l2=null;
 
-	if(t != null && t instanceof TYPE_FUNCTION)
-	{
+	if(t == null ) return;
+    if(!(t instanceof TYPE_FUNCTION))  UTILS.Error("Symbol already exist", this.name, this.getClass().getName(), this.posY, this.posX);
 		tf = (TYPE_FUNCTION) t;
-		if(this.type_list!= null ) {
-			for (l1 = this.type_list, l2 = tf.params; l1 != null && l2 != null; l1 = l1.tail, l2 = l2.tail) {
+		//if(this.type_list== null  && tf.params ==null) UTILS.Error("Function overloading is not allowed", this.name, this.getClass().getName(), this.posY, this.posX);
+        if(tf.isBelongToSuperClass)
+        {
+        if(tf.returnType instanceof TYPE_CLASS && this.returnType instanceof TYPE_CLASS && !tf.returnType.name.equals(this.returnType.name))
+            UTILS.Error("Return TYPE NOT EQUAL", this.name, this.getClass().getName(), this.posY, this.posX);
+        else if(tf.returnType != this.returnType)
+                UTILS.Error("Return TYPE NOT EQUAL", this.name, this.getClass().getName(), this.posY, this.posX);
 
-				//Check if both Class
-				if (l1.head.t instanceof TYPE_CLASS && l2.head.t instanceof TYPE_CLASS) {
-					t1 = (TYPE_CLASS) l1.head.t;
-					t2 = (TYPE_CLASS) l2.head.t;
-					if (!(t1.name.equals(t2.name))) return;
-				}
+            for (l1 = this.type_list, l2 = tf.params; l1 != null && l2 != null; l1 = l1.tail, l2 = l2.tail) {
 
-				//Check if Both Int
-				else if (!(l1.head.t == TYPE_INT.getInstance() && l2.head.t == TYPE_INT.getInstance())) {
-					return;
-				}
-
-				//Check is param list are the same size
-
-
-			}
-
-			if ((l1 == null && l2 != null) || (l1 != null && l2 == null)) return;
-
-			else {
-
-				UTILS.Error("Function overloading is not allowed", this.name, this.getClass().getName(), this.posY, this.posX);
+                //Check if both Class
+                if (l1.head.t instanceof TYPE_CLASS && l2.head.t instanceof TYPE_CLASS) {
+                    t1 = (TYPE_CLASS) l1.head.t;
+                    t2 = (TYPE_CLASS) l2.head.t;
+                    if (!(t1.name.equals(t2.name)))
+                    {
+                        UTILS.Error("Function overloading is not allowed", this.name, this.getClass().getName(), this.posY, this.posX);
+                    }
+                    if ((l1 == null && l2 == null)) return;
+                }
+                }
+                if ((l1 != null && l2 == null) || (l1 == null && l2 != null) ) UTILS.Error("Function overloading is not allowed", this.name, this.getClass().getName(), this.posY, this.posX);
 
 
-			}
-		}
-	if(t!=null)
-	{
 
-		UTILS.Error("Symbol already exist in scope", this.name, this.getClass().getName(), this.posY, this.posX);
+
+        }else
+            {
+                UTILS.Error("Function overloading is not allowed", this.name, this.getClass().getName(), this.posY, this.posX);
+            }
+
+
+
+            //Check is param list are the same size
+
+
+		//else UTILS.Error("Function overloading is not allowed", this.name, this.getClass().getName(), this.posY, this.posX);
+
 	}
-
-}}
 
  void GetReturnType()
 {
@@ -268,3 +282,40 @@ void CheckIfNameInScope() {
 		}
 	}
 }
+
+
+//    void CheckIfNameInScope() {
+//
+//        TYPE t =SYMBOL_TABLE.getInstance().GetNameFromScope(this.name);
+//        TYPE_FUNCTION tf;
+//        TYPE_CLASS t1 =null;
+//        TYPE_CLASS t2= null;
+//        TYPE_CLASS_VAR_DEC_LIST l1=null,l2=null;
+//
+//        if(t == null ) return;
+//        if(!(t instanceof TYPE_FUNCTION))  UTILS.Error("Not a function", this.name, this.getClass().getName(), this.posY, this.posX);
+//        tf = (TYPE_FUNCTION) t;
+//        if(this.type_list== null  && tf.params ==null) UTILS.Error("Function overloading is not allowed", this.name, this.getClass().getName(), this.posY, this.posX);
+//
+//        for (l1 = this.type_list, l2 = tf.params; l1 != null && l2 != null; l1 = l1.tail, l2 = l2.tail) {
+//
+//            //Check if both Class
+//            if (l1.head.t instanceof TYPE_CLASS && l2.head.t instanceof TYPE_CLASS) {
+//                t1 = (TYPE_CLASS) l1.head.t;
+//                t2 = (TYPE_CLASS) l2.head.t;
+//                if (!(t1.name.equals(t2.name))) return;
+//            }
+//
+//            //Check if Both Int
+//            else if (!(l1.head.t == TYPE_INT.getInstance() && l2.head.t == TYPE_INT.getInstance())) {
+//                return;
+//            }
+//        }
+//
+//
+//        //Check is param list are the same size
+//        if ((l1 == null && l2 != null) || (l1 != null && l2 == null)) return;
+//
+//        else UTILS.Error("Function overloading is not allowed", this.name, this.getClass().getName(), this.posY, this.posX);
+//
+//    }

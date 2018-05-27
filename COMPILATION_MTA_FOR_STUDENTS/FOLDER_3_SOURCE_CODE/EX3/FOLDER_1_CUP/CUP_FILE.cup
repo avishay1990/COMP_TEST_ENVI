@@ -227,7 +227,7 @@ exp				::=		var:v		{: RESULT = v; :}
 					|	 		callExp:e		{: RESULT = e; :}
 					| 		INT:i			{: RESULT = new AST_EXP_INT(i,lexer.getLine(),lexer.getCharPos());    :}
 					| 		MINUS {: RESULT = null;    :}
-					|			NIL {: RESULT = null;    :};
+					|		NIL {: RESULT = new AST_EXP_NULL(lexer.getLine(),lexer.getCharPos());    :};
 
 
 var				::=		ID:name							{: RESULT = new AST_EXP_VAR_SIMPLE(name,lexer.getLine(),lexer.getCharPos());       :}

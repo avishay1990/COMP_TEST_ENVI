@@ -1,0 +1,73 @@
+digraph
+{
+graph [ordering = "out"]
+v0 [label = "VAR
+DEC(j)
+:int"];
+v1 [label = "VAR
+DEC(k)
+:int"];
+v2 [label = "CFIELD
+LIST
+"];
+v2 -> v1;
+v3 [label = "CFIELD
+LIST
+"];
+v3 -> v0;
+v3 -> v2;
+v4 [label = "CLASS
+Father"];
+v4 -> v3;
+v5 [label = "NAME:TYPE
+f:Father"];
+v6 [label = "TYPE-NAME
+LIST
+"];
+v6 -> v5;
+v7 [label = "INT(620)"];
+v8 [label = "VAR
+DEC(i)
+:int"];
+v8 -> v7;
+v9 [label = "STMT
+DEC
+VAR"];
+v9 -> v8;
+v10 [label = "SIMPLE
+VAR
+(i)"];
+v11 [label = "SIMPLE
+VAR
+(f)"];
+v12 [label = "FIELD
+VAR
+___.j"];
+v12 -> v11;
+v13 [label = "BINOP(<)"];
+v13 -> v10;
+v13 -> v12;
+v14 [label = "RETURN"];
+v14 -> v13;
+v15 [label = "STMT
+LIST
+"];
+v15 -> v14;
+v16 [label = "STMT
+LIST
+"];
+v16 -> v9;
+v16 -> v15;
+v17 [label = "FUNC(foo)
+:int
+"];
+v17 -> v6;
+v17 -> v16;
+v18 [label = "PROGRAM
+"];
+v18 -> v17;
+v19 [label = "PROGRAM
+"];
+v19 -> v4;
+v19 -> v18;
+}

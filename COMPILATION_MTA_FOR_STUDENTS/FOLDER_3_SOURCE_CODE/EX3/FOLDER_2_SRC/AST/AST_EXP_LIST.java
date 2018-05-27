@@ -61,14 +61,16 @@ public class AST_EXP_LIST extends AST_Node
 		if (tail != null) AST_GRAPHVIZ.getInstance().logEdge(SerialNumber,tail.SerialNumber);
 	}
 
-	public TYPE SemantMe()
+	public TYPE_LIST SemantMe()
 	{
-		TYPE t = null;
-		//System.out.print("NOW IN AST EXP LIST\n");
-
+		TYPE t =null;
+		TYPE_LIST type_list = null;
+		if(head == null && tail == null) return null;
 		if (head != null) t = head.SemantMe();
-		if (tail != null) t = tail.SemantMe();
+		if (tail != null) type_list = tail.SemantMe();
 
-		return t;
+		if(tail == null) return new TYPE_LIST(t,null);
+		else return new TYPE_LIST(t,type_list);
+
 	}
 }

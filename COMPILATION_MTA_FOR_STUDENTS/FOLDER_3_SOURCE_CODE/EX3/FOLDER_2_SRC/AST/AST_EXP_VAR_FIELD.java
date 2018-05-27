@@ -64,6 +64,8 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		/******************************/
 		if (var != null) t = var.SemantMe();
 
+		if(t== null)  			UTILS.Error("Symbol Not Found" ,this.fieldName,this.getClass().getName(),this.posY, this.posX);
+
 		/*********************************/
 		/* [2] Make sure type is a class */
 		/*********************************/
@@ -83,7 +85,7 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		/************************************/
 		for (TYPE_CLASS_VAR_DEC_LIST it=tc.data_members;it != null;it=it.tail)
 		{
-			if (it.head.t.name == fieldName)
+			if (it.head.name.equals(fieldName))
 			{
 				return it.head.t;
 			}
@@ -94,8 +96,7 @@ public class AST_EXP_VAR_FIELD extends AST_EXP_VAR
 		/*********************************************/
 		UTILS.Error("field does not exist in class" ,this.fieldName,this.getClass().getName(),this.posY, this.posX);
 
-		//System.out.format(">> ERROR [%d:%d] field %s does not exist in class\n",this.posY,this.posX,fieldName);
-		//System.exit(0);
+
 		return null;
 	}
 }

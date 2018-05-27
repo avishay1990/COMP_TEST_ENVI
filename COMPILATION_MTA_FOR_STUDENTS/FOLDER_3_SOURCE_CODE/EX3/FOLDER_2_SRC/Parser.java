@@ -592,7 +592,7 @@ class CUP$Parser$actions {
           case 18: // exp ::= NIL 
             {
               AST_EXP RESULT =null;
-		 RESULT = null;    
+		 RESULT = new AST_EXP_NULL(lexer.getLine(),lexer.getCharPos());    
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("exp",7, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
